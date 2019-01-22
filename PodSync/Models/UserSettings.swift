@@ -9,5 +9,10 @@
 import Foundation
 
 class Settings{
-    
+    var FolderLocation: URL
+    init(location: URL)
+    {
+        self.FolderLocation = location
+    }
 }
+

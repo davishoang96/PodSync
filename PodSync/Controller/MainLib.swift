@@ -14,6 +14,8 @@ class Utilities{
     
     static let library = try! ITLibrary.init(apiVersion: "1.1")
     
+    static let fileManager = FileManager.default
+    
     static let builtinPlaylist = ["Library","Music","Music Videos","TV and Movies", "Movies", "Home Videos", "TV Shows", "Podcasts", "Audiobooks","Purchased"]
     
     static func getLibraryLocation() -> URL?
@@ -65,19 +67,43 @@ class Utilities{
     }
     
     
+
     
-    static func getFolderItems(location: URL) -> [String]
+    
+    static func getFolderItems(folderLocation: URL) -> [URL]?
     {
-        return ["nil"]
+        var files = [URL]()
+        
+        let content = try! fileManager.contentsOfDirectory(at: folderLocation, includingPropertiesForKeys: nil)
+        
+        for eachFile in content
+        {
+            files.append(eachFile)
+        }
+        
+        return files
+    }
+    
+    static func getSongLocations(songs: [ITLibMediaItem]) -> [URL]
+    {
+        var locations = [URL]()
+        for eachsong in songs
+        {
+            locations.append(eachsong.location!)
+        }
+        return locations
     }
     
     static func sync(songs: [ITLibMediaItem])
     {
-        for eachsong in songs
-        {
-            print(eachsong.title)
-        }
+        // 1. Scan the sync folder
+        
+        
+        
+        // Sync
     }
+    
+    
     
     
     

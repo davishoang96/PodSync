@@ -21,6 +21,36 @@ class ViewController: NSViewController {
         
     }
     
+    
+    @IBOutlet weak var PathControl: NSPathControl!
+    @IBAction func onClickPathControl(_ sender: NSPathControl) {
+        let dialog = NSOpenPanel()
+        
+        dialog.title                   = "Choose a destination to sync";
+        dialog.showsResizeIndicator    = true;
+        dialog.showsHiddenFiles        = false;
+        dialog.canChooseDirectories    = true;
+        dialog.canCreateDirectories    = true;
+        dialog.allowsMultipleSelection = false;
+        dialog.beginSheetModal(for: self.view.window!, completionHandler: { num in
+            
+            if num == NSApplication.ModalResponse.OK {
+                let result = dialog.url
+                
+                if (result != nil) {
+                    
+                    self.PathControl.url = result?.absoluteURL
+                    Utilities.getFolderItems(folderLocation: result!)
+                }
+            } else {
+                print("nothing chosen")
+            }
+        })
+    }
+    
+    
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -50,6 +80,7 @@ extension ViewController: NSTableViewDelegate, NSTableViewDataSource{
             if let cell: CustomTableViewCell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "CheckColumn"), owner: self) as? CustomTableViewCell
             {
                 cell.Checkbox.title = Utilities.getPlaylist()[row]
+                
                 cell.sel_checkBox = { sender in
                     if cell.Checkbox.state.rawValue == 1
                     {
