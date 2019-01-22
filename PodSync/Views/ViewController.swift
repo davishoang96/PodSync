@@ -12,12 +12,15 @@ import iTunesLibrary
 class ViewController: NSViewController {
 
     var selected_playlist = [String]()
+    var location: URL?
 
     @IBOutlet weak var TableView: NSTableView!
     @IBAction func onClickSync(_ sender: NSButton) {
         
         
-        Utilities.sync(songs: Utilities.getSong(name: selected_playlist))
+        Utilities.sync(songs: Utilities.getSong(name: selected_playlist), destinationFolder: location!)
+        
+        
         
     }
     
@@ -35,12 +38,18 @@ class ViewController: NSViewController {
         dialog.beginSheetModal(for: self.view.window!, completionHandler: { num in
             
             if num == NSApplication.ModalResponse.OK {
+                
                 let result = dialog.url
                 
                 if (result != nil) {
                     
                     self.PathControl.url = result?.absoluteURL
+                    
                     Utilities.getFolderItems(folderLocation: result!)
+                    
+                    self.location = result
+                    
+                    
                 }
             } else {
                 print("nothing chosen")

@@ -9,10 +9,8 @@
 import Foundation
 
 class Settings{
-    var FolderLocation: URL
-    init(location: URL)
-    {
-        self.FolderLocation = location
+    struct location {
+        let folder_location: URL
     }
 }
 

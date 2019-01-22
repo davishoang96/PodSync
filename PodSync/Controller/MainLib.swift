@@ -12,11 +12,11 @@ import iTunesLibrary
 
 class Utilities{
     
-    static let library = try! ITLibrary.init(apiVersion: "1.1")
+    private static let library = try! ITLibrary.init(apiVersion: "1.1")
     
     static let fileManager = FileManager.default
     
-    static let builtinPlaylist = ["Library","Music","Music Videos","TV and Movies", "Movies", "Home Videos", "TV Shows", "Podcasts", "Audiobooks","Purchased"]
+    private static let builtinPlaylist = ["Library","Music","Music Videos","TV and Movies", "Movies", "Home Videos", "TV Shows", "Podcasts", "Audiobooks","Purchased"]
     
     static func getLibraryLocation() -> URL?
     {
@@ -70,15 +70,15 @@ class Utilities{
 
     
     
-    static func getFolderItems(folderLocation: URL) -> [URL]?
+    static func getFolderItems(folderLocation: URL) -> [String]?
     {
-        var files = [URL]()
+        var files = [String]()
         
         let content = try! fileManager.contentsOfDirectory(at: folderLocation, includingPropertiesForKeys: nil)
         
         for eachFile in content
         {
-            files.append(eachFile)
+            files.append(eachFile.lastPathComponent)
         }
         
         return files
@@ -94,10 +94,36 @@ class Utilities{
         return locations
     }
     
-    static func sync(songs: [ITLibMediaItem])
+    static func sync(songs: [ITLibMediaItem], destinationFolder: URL)
     {
-        // 1. Scan the sync folder
         
+        var folderItems = [String]()
+        var i = 0
+        
+        // 1. Scan the sync folder
+        if let content = getFolderItems(folderLocation: destinationFolder)
+        {
+            folderItems = content
+        }
+        
+
+        
+        // 2. Check if songs in playlist are equal in the sync folder
+        for eachsong in songs
+        {
+            if folderItems.contains((eachsong.location?.lastPathComponent)!)
+            {
+                print(i, "MATCHED")
+            }
+            else
+            {
+                print(i, "NOT MATCHED")
+            }
+            i+=1
+        }
+        
+        
+        // 2. Get songs
         
         
         // Sync
