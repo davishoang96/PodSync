@@ -18,6 +18,14 @@ class Utilities{
     
     private static let builtinPlaylist = ["Library","Music","Music Videos","TV and Movies", "Movies", "Home Videos", "TV Shows", "Podcasts", "Audiobooks","Purchased"]
     
+    
+    static func getUserHomeDirectory() -> URL
+    {
+        let homeDirectory = fileManager.homeDirectoryForCurrentUser
+        let result = homeDirectory.absoluteURL
+        return result
+    }
+    
     static func getLibraryLocation() -> URL?
     {
         do{
@@ -31,6 +39,7 @@ class Utilities{
         }
     }
     
+    
     static func getPlaylist() -> [String]
     {
         let playlists = library.allPlaylists
@@ -41,6 +50,7 @@ class Utilities{
         {
             temp_plist.append(eachplaylist.name)
             p = temp_plist.filter {
+
                 !builtinPlaylist.contains($0)
             }
         }

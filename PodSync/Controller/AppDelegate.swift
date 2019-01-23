@@ -11,10 +11,14 @@ import Cocoa
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-
+    var fileManager = FileManager.default
+    
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         // Insert code here to initialize your application
+        
+        
+        
         
         
         

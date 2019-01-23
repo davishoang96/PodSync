@@ -13,6 +13,7 @@ class ViewController: NSViewController {
 
     var selected_playlist = [String]()
     var location: URL?
+    
 
     @IBOutlet weak var TableView: NSTableView!
     @IBAction func onClickSync(_ sender: NSButton) {
@@ -28,6 +29,9 @@ class ViewController: NSViewController {
     @IBOutlet weak var PathControl: NSPathControl!
     @IBAction func onClickPathControl(_ sender: NSPathControl) {
         let dialog = NSOpenPanel()
+        
+
+        
         
         dialog.title                   = "Choose a destination to sync";
         dialog.showsResizeIndicator    = true;
@@ -45,8 +49,8 @@ class ViewController: NSViewController {
                     
                     self.PathControl.url = result?.absoluteURL
                     
-                    Utilities.getFolderItems(folderLocation: result!)
-                    
+                    UserDefaults.standard.setLocationURL(value: result!)
+                                        
                     self.location = result
                     
                     
@@ -62,7 +66,13 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // 1. Load saved sync folder location
+        let currentDirectory = UserDefaults.standard.getLocationURL()
+        self.PathControl.url = currentDirectory
+        
+        
+        
     }
 
     override var representedObject: Any? {
