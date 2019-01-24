@@ -21,7 +21,7 @@ class ViewController: NSViewController {
         
         Utilities.sync(songs: Utilities.getSong(name: selected_playlist), destinationFolder: location!)
         
-        
+        //Utilities.getSong(name: selected_playlist)
         
     }
     
@@ -67,9 +67,15 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // REMOVE destinationURL key if needed
+        //let removeURL = UserDefaults.standard
+        //removeURL.removeObject(forKey: "destinationURL")
+        
         // 1. Load saved sync folder location
-        let currentDirectory = UserDefaults.standard.getLocationURL()
-        self.PathControl.url = currentDirectory
+        let lastDirectory = UserDefaults.standard.getLocationURL()
+        self.PathControl.url = lastDirectory
+        location = lastDirectory
+        
         
         
         

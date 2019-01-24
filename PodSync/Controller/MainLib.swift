@@ -57,9 +57,32 @@ class Utilities{
         return p
     }
     
+    static func removeDuplicate(_ songs: [ITLibMediaItem], _ playlist: [String]) -> [ITLibMediaItem]
+    {
+        var item = [ITLibMediaItem]()
+        
+        for eachplaylist in library.allPlaylists
+        {
+            for pls in playlist
+            {
+                if eachplaylist.name == pls
+                {
+                    for song in eachplaylist.items
+                    {
+                        item.append(song)
+                        
+                        item = Array(Set(item))
+                    }
+                }
+            }
+        }
+        return item
+    }
+    
     static func getSong(name: [String]) -> [ITLibMediaItem]
     {
         var item = [ITLibMediaItem]()
+        
         for eachplaylist in library.allPlaylists
         {
             for pls in name
@@ -69,10 +92,12 @@ class Utilities{
                     for song in eachplaylist.items
                     {
                         item.append(song)
+                        
+                        item = Array(Set(item))
                     }
                 }
             }
-        }
+        }    
         return item
     }
     
@@ -107,7 +132,15 @@ class Utilities{
     static func sync(songs: [ITLibMediaItem], destinationFolder: URL)
     {
         
+        var songName = [String]()
         var folderItems = [String]()
+        
+        var songpath:String
+        var songfilename: String
+        var myPath:String
+        
+        let removePath = destinationFolder.path + "/"
+        
         var i = 0
         
         // 1. Scan the sync folder
@@ -116,31 +149,69 @@ class Utilities{
             folderItems = content
         }
         
-
-        
-        // 2. Check if songs in playlist are equal in the sync folder
+        // 2. Get song name
         for eachsong in songs
         {
-            if folderItems.contains((eachsong.location?.lastPathComponent)!)
-            {
-                print(i, "MATCHED")
+            if let lastPath = eachsong.location?.lastPathComponent{
+                songName.append(lastPath)
             }
-            else
-            {
-                print(i, "NOT MATCHED")
-            }
-            i+=1
+            print(eachsong.title)
         }
         
-        
-        // 2. Get songs
-        
-        
-        // Sync
+        // 3. Compare playlists and folders
+        // Remove if item in folder not match with playlist
+        do
+        {
+            for eachItem in folderItems
+            {
+                if songName.contains(eachItem)
+                {
+                    print(i, "MATCHED", eachItem)
+                }
+                else
+                {
+                    print(i, "NOT MATCHED", eachItem)
+                    try fileManager.removeItem(atPath: removePath + eachItem)
+                }
+                i+=1
+            }
+        }
+        catch
+        {
+            print(error.localizedDescription)
+        }
+
+ 
+        // 4. SYNC
+        do
+        {
+            for eachsong in songs
+            {
+                songpath = (eachsong.location?.path)!
+                songfilename = (eachsong.location?.lastPathComponent)!
+                myPath = destinationFolder.path + "/" + songfilename
+                
+                
+                if let song = eachsong.location?.lastPathComponent
+                {
+                    if folderItems.contains(song)
+                    {
+                        print("FILE EXISTED")
+                    }
+                    else
+                    {
+                        try fileManager.copyItem(atPath: songpath, toPath: myPath)
+                    }
+                }
+            }
+            print(songs.count)
+        }
+        catch
+        {
+            print(error.localizedDescription)
+        }   
+    
+    
     }
-    
-    
-    
-    
     
 }
