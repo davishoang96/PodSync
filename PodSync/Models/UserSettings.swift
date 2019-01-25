@@ -7,14 +7,13 @@
 //
 
 import Foundation
+import iTunesLibrary
 
 import Cocoa
 
-struct Settings {
-    var loadInitLocaiton: URL
-    var PathURL: URL
+struct TablePlaylist{
+    var playlist: [String]
 }
-
 
 extension UserDefaults{
     

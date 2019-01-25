@@ -18,6 +18,10 @@ class Utilities{
     
     private static let builtinPlaylist = ["Library","Music","Music Videos","TV and Movies", "Movies", "Home Videos", "TV Shows", "Podcasts", "Audiobooks","Purchased"]
     
+    static func reloadLibrary()
+    {
+        library.reloadData()
+    }
     
     static func getUserHomeDirectory() -> URL
     {
@@ -42,6 +46,8 @@ class Utilities{
     
     static func getPlaylist() -> [String]
     {
+        library.reloadData()
+        
         let playlists = library.allPlaylists
         var temp_plist = [String]()
         var p = [String]()
@@ -102,21 +108,33 @@ class Utilities{
     }
     
     
-
+    
     
     
     static func getFolderItems(folderLocation: URL) -> [String]?
     {
-        var files = [String]()
         
-        let content = try! fileManager.contentsOfDirectory(at: folderLocation, includingPropertiesForKeys: nil)
         
-        for eachFile in content
+        do
         {
-            files.append(eachFile.lastPathComponent)
+            var files = [String]()
+            
+            let content = try fileManager.contentsOfDirectory(at: folderLocation, includingPropertiesForKeys: nil)
+            
+            for eachFile in content
+            {
+                files.append(eachFile.lastPathComponent)
+            }
+            
+            return files
+        }
+        catch
+        {
+            return ["ERROR"]
+            print(error.localizedDescription)
         }
         
-        return files
+        
     }
     
     static func getSongLocations(songs: [ITLibMediaItem]) -> [URL]
@@ -131,7 +149,6 @@ class Utilities{
     
     static func sync(songs: [ITLibMediaItem], destinationFolder: URL)
     {
-        
         var songName = [String]()
         var folderItems = [String]()
         
