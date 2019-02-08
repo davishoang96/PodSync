@@ -63,28 +63,6 @@ class Utilities{
         return p
     }
     
-    static func removeDuplicate(_ songs: [ITLibMediaItem], _ playlist: [String]) -> [ITLibMediaItem]
-    {
-        var item = [ITLibMediaItem]()
-        
-        for eachplaylist in library.allPlaylists
-        {
-            for pls in playlist
-            {
-                if eachplaylist.name == pls
-                {
-                    for song in eachplaylist.items
-                    {
-                        item.append(song)
-                        
-                        item = Array(Set(item))
-                    }
-                }
-            }
-        }
-        return item
-    }
-    
     static func getSong(name: [String]) -> [ITLibMediaItem]
     {
         var item = [ITLibMediaItem]()
@@ -107,36 +85,6 @@ class Utilities{
         return item
     }
     
-    
-    
-    
-    
-    static func getFolderItems(folderLocation: URL) -> [String]?
-    {
-        
-        
-        do
-        {
-            var files = [String]()
-            
-            let content = try fileManager.contentsOfDirectory(at: folderLocation, includingPropertiesForKeys: nil)
-            
-            for eachFile in content
-            {
-                files.append(eachFile.lastPathComponent)
-            }
-            
-            return files
-        }
-        catch
-        {
-            return ["ERROR"]
-            print(error.localizedDescription)
-        }
-        
-        
-    }
-    
     static func getSongLocations(songs: [ITLibMediaItem]) -> [URL]
     {
         var locations = [URL]()
@@ -147,48 +95,70 @@ class Utilities{
         return locations
     }
     
-    static func sync(songs: [ITLibMediaItem], destinationFolder: URL)
+    static func Get_FolderItemURL(_ destinationFolder: URL) -> [URL]?
     {
-        var songName = [String]()
-        var folderItems = [String]()
+        var files = [URL]()
         
-        var songpath:String
-        var songfilename: String
-        var myPath:String
-        
-        let removePath = destinationFolder.path + "/"
-        
-        var i = 0
-        
-        // 1. Scan the sync folder
-        if let content = getFolderItems(folderLocation: destinationFolder)
-        {
-            folderItems = content
-        }
-        
-        // 2. Get song name
-        for eachsong in songs
-        {
-            if let lastPath = eachsong.location?.lastPathComponent{
-                songName.append(lastPath)
-            }
-            print(eachsong.title)
-        }
-        
-        // 3. Compare playlists and folders
-        // Remove if item in folder not match with playlist
         do
         {
-            for eachItem in folderItems
+            let contents = try fileManager.contentsOfDirectory(at: destinationFolder, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
+            for eachfile in contents
             {
-                if songName.contains(eachItem)
+                files.append(eachfile)
+            }
+            
+            return files
+            
+        }
+        catch
+        {
+            print(error.localizedDescription)
+            return nil
+        }
+    }
+    
+    static func Get_LastPathComponent(_ destinationFolder: URL) -> [String]
+    {
+        var fileName = [String]()
+        if let items = Get_FolderItemURL(destinationFolder)
+        {
+            for eachItem in items
+            {
+                fileName.append(eachItem.lastPathComponent)
+            }
+        }
+        return fileName
+    }
+    
+    static func Get_SongName(_ songs: [ITLibMediaItem]) -> [String]
+    {
+        var SongNames = [String]()
+        for eachsong in songs
+        {
+            if let lastPath = eachsong.location?.lastPathComponent
+            {
+                SongNames.append(lastPath)
+            }
+        }
+        return SongNames
+    }
+    
+    static func Remove_NonExistItems(itemURL: [URL], songName: [String])
+    {
+        var i = 0
+        do
+        {
+            for eachitem in itemURL
+            {
+                if songName.contains(eachitem.lastPathComponent)
                 {
-                    print(i, "MATCHED", eachItem)
+                    print(i, "MATCHED", eachitem.lastPathComponent)
                 }
                 else
                 {
-                    print(i, "NOT MATCHED", eachItem)
-                    try fileManager.removeItem(atPath: removePath + eachItem)
+                    print(i, "NOT MATCHED", eachitem.lastPathComponent)
+                    
+                    try fileManager.trashItem(at: eachitem, resultingItemURL: nil)
                 }
                 i+=1
             }
@@ -196,39 +166,46 @@ class Utilities{
         catch
         {
             print(error.localizedDescription)
+            return
         }
-
- 
-        // 4. SYNC
+    }
+    
+    static func get_SongMDateLib(_ songs: [ITLibMediaItem]) -> [Date]
+    {
+        var date = [Date]()
+        
+        for eachsong in songs
+        {
+            if let modifiedDate = eachsong.modifiedDate
+            {
+                date.append(modifiedDate)
+            }
+        }
+        return date
+    }
+    
+    static func get_SongMDateFolder(items: [URL]) -> [Date]?
+    {
+        var date = [Date]()
+        
         do
         {
-            for eachsong in songs
+            for eachitem in items
             {
-                songpath = (eachsong.location?.path)!
-                songfilename = (eachsong.location?.lastPathComponent)!
-                myPath = destinationFolder.path + "/" + songfilename
+                var itemDate = try fileManager.attributesOfItem(atPath: eachitem.path)
                 
-                
-                if let song = eachsong.location?.lastPathComponent
+                if let fileDate = itemDate[FileAttributeKey.modificationDate]
                 {
-                    if folderItems.contains(song)
-                    {
-                        print("FILE EXISTED")
-                    }
-                    else
-                    {
-                        try fileManager.copyItem(atPath: songpath, toPath: myPath)
-                    }
+                    date.append(fileDate as! Date)
                 }
+                
             }
-            print(songs.count)
+            return date
         }
         catch
         {
             print(error.localizedDescription)
-        }   
-    
-    
-    }
-    
+            return nil
+        }
+    }    
 }

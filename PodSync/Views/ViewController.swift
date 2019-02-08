@@ -21,10 +21,11 @@ class ViewController: NSViewController {
     @IBOutlet weak var tableView: NSTableView!
     @IBAction func onClickSync(_ sender: NSButton) {
         
+        if let FolderLocation = location
+        {
+            Synchronize.Sync(songs: Utilities.getSong(name: selected_playlist), destinationFolder: FolderLocation)
+        }
 
-        
-        Utilities.sync(songs: Utilities.getSong(name: selected_playlist), destinationFolder: location!)
-        
     }
     
     

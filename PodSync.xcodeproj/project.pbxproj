@@ -14,6 +14,7 @@
 		44DDBB2221F03F2100DA0735 /* PodSyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DDBB2121F03F2100DA0735 /* PodSyncTests.swift */; };
 		44DDBB2D21F03F2100DA0735 /* PodSyncUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DDBB2C21F03F2100DA0735 /* PodSyncUITests.swift */; };
 		8D15680021F094980078483F /* MainLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1567FF21F094980078483F /* MainLib.swift */; };
+		8D1F337A220D33F600389774 /* MainSyncFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1F3379220D33F600389774 /* MainSyncFunc.swift */; };
 		8D33C13621F1624D004F0814 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33C13521F1624C004F0814 /* UserSettings.swift */; };
 		8DB09EEC21F03F8C006B662C /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB09EEB21F03F8C006B662C /* iTunesLibrary.framework */; };
 		8DB09EF121F05A42006B662C /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB09EF021F05A42006B662C /* CustomTableViewCell.swift */; };
@@ -50,6 +51,7 @@
 		44DDBB2C21F03F2100DA0735 /* PodSyncUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodSyncUITests.swift; sourceTree = "<group>"; };
 		44DDBB2E21F03F2100DA0735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1567FF21F094980078483F /* MainLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLib.swift; sourceTree = "<group>"; wrapsLines = 0; };
+		8D1F3379220D33F600389774 /* MainSyncFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSyncFunc.swift; sourceTree = "<group>"; };
 		8D33C13521F1624C004F0814 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
 		8DB09EEB21F03F8C006B662C /* iTunesLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTunesLibrary.framework; path = System/Library/Frameworks/iTunesLibrary.framework; sourceTree = SDKROOT; };
 		8DB09EED21F03FDA006B662C /* iTunesBridgeHeader.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = iTunesBridgeHeader.h; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 			children = (
 				44DDBB0F21F03F2100DA0735 /* AppDelegate.swift */,
 				8D1567FF21F094980078483F /* MainLib.swift */,
+				8D1F3379220D33F600389774 /* MainSyncFunc.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D15680021F094980078483F /* MainLib.swift in Sources */,
+				8D1F337A220D33F600389774 /* MainSyncFunc.swift in Sources */,
 				8DB09EF121F05A42006B662C /* CustomTableViewCell.swift in Sources */,
 				44DDBB1221F03F2100DA0735 /* ViewController.swift in Sources */,
 				8D33C13621F1624D004F0814 /* UserSettings.swift in Sources */,
@@ -473,7 +477,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = J247BFW6KA;
 				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks/iTunesLibrary.framework;
 				INFOPLIST_FILE = PodSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -492,7 +496,7 @@
 				CODE_SIGN_IDENTITY = "Mac Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = J247BFW6KA;
 				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks/iTunesLibrary.framework;
 				INFOPLIST_FILE = PodSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
