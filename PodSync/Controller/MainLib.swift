@@ -16,7 +16,9 @@ class Utilities{
     
     static let fileManager = FileManager.default
     
-    private static let builtinPlaylist = ["Library","Music","Music Videos","TV and Movies", "Movies", "Home Videos", "TV Shows", "Podcasts", "Audiobooks","Purchased"]
+    private static let builtinPlaylist = ["Music","Music Videos","TV and Movies", "Movies", "Home Videos", "TV Shows", "Podcasts", "Audiobooks","Purchased", "TV & Films", "Films", "TV Programmes"]
+    
+    private static var totalsong: Double?
     
     static func reloadLibrary()
     {
@@ -67,6 +69,7 @@ class Utilities{
     {
         var item = [ITLibMediaItem]()
         
+        
         for eachplaylist in library.allPlaylists
         {
             for pls in name
@@ -81,8 +84,21 @@ class Utilities{
                     }
                 }
             }
-        }    
+        }
+        totalsong = Double(item.count)
         return item
+    }
+    
+    static func getTotalSong() -> Double
+    {
+        if let totalsong = totalsong
+        {
+            return totalsong
+        }
+        else
+        {
+            return 0
+        }
     }
     
     static func getSongLocations(songs: [ITLibMediaItem]) -> [URL]

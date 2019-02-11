@@ -13,8 +13,16 @@ import iTunesLibrary
 
 class Synchronize
 {
+    
+    var percent: Double?
+    
     static func Sync(songs: [ITLibMediaItem], destinationFolder: URL)
     {
+        print(SyncPercent.calpercent())
+        
+        let nc = NotificationCenter.default
+        
+        
         var songName = [String]()
         var folderItemsURL = [URL]()
         var folderItemsName = [String]()
@@ -40,15 +48,21 @@ class Synchronize
         Utilities.Remove_NonExistItems(itemURL: folderItemsURL, songName: songName)
         
         
+        // BETA TEST
+        
         var a = Utilities.get_SongMDateLib(songs)
         var b = Utilities.get_SongMDateFolder(items: folderItemsURL)
         
-        Utilities.updateSongs(playlist: a, folder: b!)
+        
+        
+        // ------------------------------
         
         
         // 5. SYNC
         do
         {
+            var i = 0
+            
             for eachsong in songs
             {
                 songpath = (eachsong.location?.path)!
@@ -65,10 +79,14 @@ class Synchronize
                     else
                     {
                         try FileManager.default.copyItem(atPath: songpath, toPath: myPath)
+                        nc.post(name: NSNotification.Name("SyncCompleted"), object: self)
+                        i+=1
+                        print(i)
                     }
                 }
             }
-            print(songs.count)
+            
+            
         }
         catch
         {

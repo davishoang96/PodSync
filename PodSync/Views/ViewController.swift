@@ -9,6 +9,8 @@
 import Cocoa
 import iTunesLibrary
 
+
+
 class ViewController: NSViewController {
 
     var selected_playlist = [String]()
@@ -21,12 +23,27 @@ class ViewController: NSViewController {
     @IBOutlet weak var tableView: NSTableView!
     @IBAction func onClickSync(_ sender: NSButton) {
         
-        if let FolderLocation = location
-        {
-            Synchronize.Sync(songs: Utilities.getSong(name: selected_playlist), destinationFolder: FolderLocation)
+        ProgressBar.doubleValue = 0
+        
+        let queue = DispatchQueue(label: "work-queue")
+        
+        queue.async {
+            
+            if let FolderLocation = self.location
+            {
+                Synchronize.Sync(songs: Utilities.getSong(name: self.selected_playlist), destinationFolder: FolderLocation)
+            }
+            
         }
-
+        
+        
+      
     }
+    
+    
+    @IBOutlet weak var ProgressBar: NSProgressIndicator!
+    @IBOutlet weak var SyncBtn: NSButton!
+    
     
     
     @IBOutlet weak var PathControl: NSPathControl!
@@ -91,10 +108,6 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-  
-        
-        
-        
         // 1. Load saved sync folder location
         let lastDirectory = UserDefaults.standard.getLocationURL()
         
@@ -121,7 +134,20 @@ class ViewController: NSViewController {
             name: NSApplication.didBecomeActiveNotification,
             object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(Com), name: NSNotification.Name("SyncCompleted"), object: nil)
+        
     }
+    
+    @objc func Com(notification: Notification)
+    {
+        var percent = SyncPercent.calpercent()
+        
+        DispatchQueue.main.async {
+            self.ProgressBar.increment(by: percent)
+        }
+        
+    }
+    
 
     override var representedObject: Any? {
         didSet {
