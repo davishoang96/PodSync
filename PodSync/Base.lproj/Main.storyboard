@@ -686,25 +686,11 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="PodSync" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="290" height="479"/>
+                        <rect key="frame" x="0.0" y="0.0" width="290" height="448"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Guc-2j-aZF">
-                                <rect key="frame" x="14" y="13" width="262" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="push" title="Sync" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KC6-yf-d8t">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                    <string key="keyEquivalent" base64-UTF8="YES">
-DQ
-</string>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="onClickSync:" target="XfG-lQ-9wD" id="Qry-e7-B3X"/>
-                                </connections>
-                            </button>
                             <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="Ajg-zR-NdP">
-                                <rect key="frame" x="20" y="129" width="250" height="330"/>
+                                <rect key="frame" x="20" y="98" width="250" height="330"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="Ltn-Xk-xHW">
                                     <rect key="frame" x="1" y="0.0" width="248" height="329"/>
@@ -774,7 +760,7 @@ DQ
                                 </tableHeaderView>
                             </scrollView>
                             <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1pT-t5-PNR">
-                                <rect key="frame" x="17" y="98" width="204" height="25"/>
+                                <rect key="frame" x="17" y="66" width="204" height="25"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <pathCell key="cell" lineBreakMode="truncatingHead" selectable="YES" editable="YES" continuous="YES" alignment="left" pathStyle="popUp" id="qE7-oq-1Bq">
                                     <font key="font" metaFont="system"/>
@@ -785,16 +771,30 @@ DQ
                                 </connections>
                             </pathControl>
                             <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Xr2-0a-h5v">
-                                <rect key="frame" x="20" y="51" width="250" height="20"/>
+                                <rect key="frame" x="20" y="43" width="250" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </progressIndicator>
                             <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kCU-tF-dT7">
-                                <rect key="frame" x="239" y="78" width="31" height="31"/>
+                                <rect key="frame" x="250" y="70" width="20" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAdvanced" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" sound="Basso" inset="2" id="a3b-D7-xjI">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Guc-2j-aZF">
+                                <rect key="frame" x="14" y="13" width="262" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Sync" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KC6-yf-d8t">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="onClickSync:" target="XfG-lQ-9wD" id="Qry-e7-B3X"/>
+                                </connections>
                             </button>
                         </subviews>
                     </view>
@@ -807,7 +807,7 @@ DQ
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-742" y="760.5"/>
+            <point key="canvasLocation" x="-742" y="745"/>
         </scene>
     </scenes>
     <resources>

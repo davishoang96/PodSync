@@ -14,6 +14,7 @@
 		44DDBB1721F03F2100DA0735 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 44DDBB1521F03F2100DA0735 /* Main.storyboard */; };
 		44DDBB2221F03F2100DA0735 /* PodSyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DDBB2121F03F2100DA0735 /* PodSyncTests.swift */; };
 		44DDBB2D21F03F2100DA0735 /* PodSyncUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DDBB2C21F03F2100DA0735 /* PodSyncUITests.swift */; };
+		44FBF69B22158C7900E28295 /* AlertBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBF69A22158C7900E28295 /* AlertBox.swift */; };
 		8D15680021F094980078483F /* MainLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1567FF21F094980078483F /* MainLib.swift */; };
 		8D1F337A220D33F600389774 /* MainSyncFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1F3379220D33F600389774 /* MainSyncFunc.swift */; };
 		8D33C13621F1624D004F0814 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33C13521F1624C004F0814 /* UserSettings.swift */; };
@@ -52,6 +53,7 @@
 		44DDBB2821F03F2100DA0735 /* PodSyncUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PodSyncUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		44DDBB2C21F03F2100DA0735 /* PodSyncUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodSyncUITests.swift; sourceTree = "<group>"; };
 		44DDBB2E21F03F2100DA0735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		44FBF69A22158C7900E28295 /* AlertBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBox.swift; sourceTree = "<group>"; };
 		8D1567FF21F094980078483F /* MainLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLib.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		8D1F3379220D33F600389774 /* MainSyncFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSyncFunc.swift; sourceTree = "<group>"; };
 		8D33C13521F1624C004F0814 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 		8D33C13221F161A1004F0814 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				44FBF69A22158C7900E28295 /* AlertBox.swift */,
 				8DB09EF021F05A42006B662C /* CustomTableViewCell.swift */,
 				44DDBB1121F03F2100DA0735 /* ViewController.swift */,
 			);
@@ -315,6 +318,7 @@
 			files = (
 				8D15680021F094980078483F /* MainLib.swift in Sources */,
 				443535AC2211A9FF002E34C4 /* Percent.swift in Sources */,
+				44FBF69B22158C7900E28295 /* AlertBox.swift in Sources */,
 				8D1F337A220D33F600389774 /* MainSyncFunc.swift in Sources */,
 				8DB09EF121F05A42006B662C /* CustomTableViewCell.swift in Sources */,
 				44DDBB1221F03F2100DA0735 /* ViewController.swift in Sources */,

@@ -23,21 +23,47 @@ class ViewController: NSViewController {
     @IBOutlet weak var tableView: NSTableView!
     @IBAction func onClickSync(_ sender: NSButton) {
         
-        ProgressBar.doubleValue = 0
+//        let queue = DispatchQueue(label: "work-queue")
+//
+//        queue.async {
+//
+//            if let FolderLocation = self.location
+//            {
+//                Synchronize.Sync(songs: Utilities.getSong(name: self.selected_playlist), destinationFolder: FolderLocation)
+//            }
+//
+//        }
         
-        let queue = DispatchQueue(label: "work-queue")
-        
-        queue.async {
-            
-            if let FolderLocation = self.location
+        if Synchronize.getstop() == true
+        {
+            let command = alertBox.dialogOKCancel(question: "Sync", text: "Stop now?")
+            if command == true
             {
-                Synchronize.Sync(songs: Utilities.getSong(name: self.selected_playlist), destinationFolder: FolderLocation)
+                Synchronize.stop(flag: false)
+                print(Synchronize.getstop())
             }
-            
+        }
+        else
+        {
+            let command = alertBox.dialogOKCancel(question: "Sync", text: "Sync now?")
+            if command == true
+            {
+                Synchronize.stop(flag: true)
+                print(Synchronize.getstop())
+                
+                        let queue = DispatchQueue(label: "work-queue")
+                
+                        queue.async {
+                
+                            if let FolderLocation = self.location
+                            {
+                                Synchronize.Sync(songs: Utilities.getSong(name: self.selected_playlist), destinationFolder: FolderLocation)
+                            }
+                
+                        }
+            }
         }
         
-        
-      
     }
     
     
@@ -80,27 +106,21 @@ class ViewController: NSViewController {
     
     //MARK: - Reload itunes library after the application has been focus
     @objc func applicationDidBecomeActive(_ notification: Notification) {
-        let timer = Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(self.ReloadLibrary), userInfo: nil, repeats: false)
+        Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(self.ReloadLibrary), userInfo: nil, repeats: false)
     }
     
     //MARK: - Reload library
     @objc func ReloadLibrary()
     {
-        do{
-            print("Hello")
-            
-            thisPlaylist.playlist = Utilities.getPlaylist()
-            
-            tableView.reloadData()
-            
-            print(thisPlaylist.playlist)
-            
-            print("LIBRARY RELOADED")
-        }
-        catch
-        {
-            print(error.localizedDescription)
-        }
+        // 1. Get playlist
+        thisPlaylist.playlist = Utilities.getPlaylist()
+        
+        // 2. Reload the table
+        tableView.reloadData()
+        
+        print(thisPlaylist.playlist)
+        
+        print("LIBRARY RELOADED")
     }
     
 
@@ -127,20 +147,22 @@ class ViewController: NSViewController {
         }
         
 
-        
+        // Reload library after users' modification from iTunes
+        // Library will reload after users focus on PodSync's window
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(applicationDidBecomeActive),
             name: NSApplication.didBecomeActiveNotification,
             object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(Com), name: NSNotification.Name("SyncCompleted"), object: nil)
+        // Sync percents notification center
+        NotificationCenter.default.addObserver(self, selector: #selector(ProcessInfo), name: NSNotification.Name("NotificationPercent"), object: nil)
         
     }
     
-    @objc func Com(notification: Notification)
+    @objc func ProcessInfo(notification: Notification)
     {
-        var percent = SyncPercent.calpercent()
+        let percent = SyncPercent.calpercent()
         
         DispatchQueue.main.async {
             self.ProgressBar.increment(by: percent)
