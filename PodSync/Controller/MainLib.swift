@@ -19,6 +19,7 @@ class Utilities{
     private static let builtinPlaylist = ["Music","Music Videos","TV and Movies", "Movies", "Home Videos", "TV Shows", "Podcasts", "Audiobooks","Purchased", "TV & Films", "Films", "TV Programmes"]
     
     private static var totalsong: Double?
+
     
     static func reloadLibrary()
     {
@@ -168,7 +169,7 @@ class Utilities{
             {
                 if songName.contains(eachitem.lastPathComponent)
                 {
-                    print(i, "MATCHED", eachitem.lastPathComponent)
+                    //print(i, "MATCHED", eachitem.lastPathComponent)
                 }
                 else
                 {
@@ -185,6 +186,21 @@ class Utilities{
             return
         }
     }
+    
+    
+    static func get_numOf_ExistedSongs(itemURL: [URL], songName: [String]) -> Double
+    {
+        var result: Double = 0
+        for eachitem in itemURL
+        {
+            if songName.contains(eachitem.lastPathComponent)
+            {
+                result+=1
+            }
+        }
+        return result
+    }
+    
     
     static func get_SongMDateLib(_ songs: [ITLibMediaItem]) -> [Date]
     {

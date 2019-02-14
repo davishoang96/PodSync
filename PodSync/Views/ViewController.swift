@@ -23,16 +23,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var tableView: NSTableView!
     @IBAction func onClickSync(_ sender: NSButton) {
         
-//        let queue = DispatchQueue(label: "work-queue")
-//
-//        queue.async {
-//
-//            if let FolderLocation = self.location
-//            {
-//                Synchronize.Sync(songs: Utilities.getSong(name: self.selected_playlist), destinationFolder: FolderLocation)
-//            }
-//
-//        }
+        
         
         if Synchronize.getstop() == true
         {
@@ -40,7 +31,7 @@ class ViewController: NSViewController {
             if command == true
             {
                 Synchronize.stop(flag: false)
-                print(Synchronize.getstop())
+                
             }
         }
         else
@@ -58,9 +49,18 @@ class ViewController: NSViewController {
                             if let FolderLocation = self.location
                             {
                                 Synchronize.Sync(songs: Utilities.getSong(name: self.selected_playlist), destinationFolder: FolderLocation)
+                                
+                                DispatchQueue.main.async {
+                                    if Synchronize.getCompleted() == true
+                                    {
+                                        alertBox.dialogOKCancel(question: "Alert", text: "Sync completed")
+                                    }
+                                    
+                                }
                             }
                 
-                        }
+                    }
+                
             }
         }
         
@@ -157,6 +157,17 @@ class ViewController: NSViewController {
         
         // Sync percents notification center
         NotificationCenter.default.addObserver(self, selector: #selector(ProcessInfo), name: NSNotification.Name("NotificationPercent"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ProcessInfo), name: NSNotification.Name("ProcessInfoRemained"), object: nil)
+        
+    }
+    
+    @objc func ProcessInfoRemained(notification: Notification)
+    {
+        let percent = SyncPercent.remainedPercent()
+        
+        DispatchQueue.main.async {
+            self.ProgressBar.doubleValue = percent
+        }
         
     }
     

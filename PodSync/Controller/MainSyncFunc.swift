@@ -15,6 +15,9 @@ class Synchronize
 {
     
     private static var isRunning: Bool?
+    private static var isCompleted: Bool?
+    private static var num_existedSongs: Double = 0
+    private static var num_copiedSongs: Int = 0
     
     static func stop(flag: Bool)
     {
@@ -34,13 +37,31 @@ class Synchronize
         }
     }
     
+    static func getCompleted()->Bool
+    {
+        if let flag = isCompleted
+        {
+            return flag
+        }
+        else
+        {
+            return false
+        }
+    }
+    
+    static func num_existedSong() -> Double
+    {
+        return num_existedSongs
+    }
+
     
     
     static func Sync(songs: [ITLibMediaItem], destinationFolder: URL)
     {
-        
         if isRunning == true
         {
+            isCompleted = false
+            
             let nc = NotificationCenter.default
             
             var songName = [String]()
@@ -67,6 +88,11 @@ class Synchronize
             // Remove if item in folder not match with playlist
             Utilities.Remove_NonExistItems(itemURL: folderItemsURL, songName: songName)
             
+            // Get num of existed songs to calculate percent of sync
+            num_existedSongs = Utilities.get_numOf_ExistedSongs(itemURL: folderItemsURL, songName: songName)
+            
+            SyncPercent.remainedPercent()
+            nc.post(name: NSNotification.Name("ProcessInfoRemained"), object: self)
             
             // BETA TEST
             
@@ -81,10 +107,9 @@ class Synchronize
             // 5. SYNC
             do
             {
-                var i = 0
-                
                 for eachsong in songs
                 {
+                    // if running equal to false then stop syncing
                     if isRunning == true
                     {
                         songpath = (eachsong.location?.path)!
@@ -96,19 +121,23 @@ class Synchronize
                         {
                             if folderItemsName.contains(song)
                             {
-                                print("FILE EXISTED")
+                                
                             }
                             else
                             {
                                 try FileManager.default.copyItem(atPath: songpath, toPath: myPath)
+                                
+                                // Update processInfo in ViewController
                                 nc.post(name: NSNotification.Name("NotificationPercent"), object: self)
-                                i+=1
-                                print(i)
+                                
+                                num_copiedSongs+=1
+                                print(num_copiedSongs)
                             }
                         }
                     }
                     else
                     {
+                        isRunning = false
                         print("Stop sync")
                         return
                     }
@@ -117,8 +146,10 @@ class Synchronize
             catch
             {
                 print(error.localizedDescription)
+                return
             }
         }
+        isCompleted = true
     }
     
     
