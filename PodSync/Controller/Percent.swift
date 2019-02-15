@@ -11,23 +11,22 @@ import Foundation
 class SyncPercent
 {
     // Percent of eachsong
-    private static var totalsong = Utilities.getTotalSong() - Synchronize.num_existedSong()
+    
     
     static func calpercent() -> Double
     {
-        let percent = 100 / totalsong
-    
-        print(percent)
+        let percent_eachsong = 100 / Utilities.getTotalSong()
         
-        return percent
+        return percent_eachsong
     }
     
     static func remainedPercent() -> Double
     {
-        let percent_eachsong = calpercent()
+        let percent_eachsong = 100 / Utilities.getTotalSong()
+        
         let ongoingPercent = percent_eachsong * Synchronize.num_existedSong()
-        print(ongoingPercent)
-        return 100 - ongoingPercent
+        
+        return ongoingPercent
     }
     
     

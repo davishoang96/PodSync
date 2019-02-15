@@ -91,8 +91,12 @@ class Synchronize
             // Get num of existed songs to calculate percent of sync
             num_existedSongs = Utilities.get_numOf_ExistedSongs(itemURL: folderItemsURL, songName: songName)
             
-            SyncPercent.remainedPercent()
-            nc.post(name: NSNotification.Name("ProcessInfoRemained"), object: self)
+            print("RemainedPercent:",SyncPercent.remainedPercent())
+            print("PercentEachFile:",SyncPercent.calpercent())
+                
+            nc.post(name: NSNotification.Name("NotificationRemained"), object: self)
+            
+            
             
             // BETA TEST
             
@@ -138,6 +142,7 @@ class Synchronize
                     else
                     {
                         isRunning = false
+                        isCompleted = false
                         print("Stop sync")
                         return
                     }
@@ -149,6 +154,7 @@ class Synchronize
                 return
             }
         }
+        isRunning = false
         isCompleted = true
     }
     

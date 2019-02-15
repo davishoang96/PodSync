@@ -23,22 +23,20 @@ class ViewController: NSViewController {
     @IBOutlet weak var tableView: NSTableView!
     @IBAction func onClickSync(_ sender: NSButton) {
         
-        
-        
         if Synchronize.getstop() == true
         {
-            let command = alertBox.dialogOKCancel(question: "Sync", text: "Stop now?")
-            if command == true
-            {
-                Synchronize.stop(flag: false)
-                
-            }
+            SyncBtn.title = "Sync"
+            Synchronize.stop(flag: false)
+            print("ISNOTRUNNING")
         }
         else
         {
             let command = alertBox.dialogOKCancel(question: "Sync", text: "Sync now?")
-            if command == true
+            if command == true && !selected_playlist.isEmpty
             {
+                print("ISRUNNING")
+                SyncBtn.title = "Cancel"
+                ProgressBar.doubleValue = 0
                 Synchronize.stop(flag: true)
                 print(Synchronize.getstop())
                 
@@ -54,16 +52,20 @@ class ViewController: NSViewController {
                                     if Synchronize.getCompleted() == true
                                     {
                                         alertBox.dialogOKCancel(question: "Alert", text: "Sync completed")
+                                        self.SyncBtn.title = "Sync"
                                     }
                                     
                                 }
                             }
-                
-                    }
-                
+        
+                }
+            }
+            else
+            {
+                print("Can't Sync!!! No playlists were selected")
+                alertBox.dialogOKCancel(question: "Alert", text: "Can't Sync!!! No playlists were selected")
             }
         }
-        
     }
     
     
@@ -157,11 +159,11 @@ class ViewController: NSViewController {
         
         // Sync percents notification center
         NotificationCenter.default.addObserver(self, selector: #selector(ProcessInfo), name: NSNotification.Name("NotificationPercent"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ProcessInfo), name: NSNotification.Name("ProcessInfoRemained"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RemainedPercent), name: NSNotification.Name("NotificationRemained"), object: nil)
         
     }
     
-    @objc func ProcessInfoRemained(notification: Notification)
+    @objc func RemainedPercent(notification: Notification)
     {
         let percent = SyncPercent.remainedPercent()
         
