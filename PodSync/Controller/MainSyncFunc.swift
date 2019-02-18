@@ -71,7 +71,7 @@ class Synchronize
             var songpath:String
             var songfilename: String
             var myPath:String
-            var subPath: String
+            
             
             // 1. Get file URLs in Synced folder
             if let item = Utilities.Get_FolderItemURL(destinationFolder)
@@ -97,7 +97,7 @@ class Synchronize
             }
             
             
-
+            
             
             // Get num of existed songs to calculate percent of sync
             num_existedSongs = Utilities.get_numOf_ExistedSongs(itemURL: folderItemsURL, songName: songName)
@@ -131,33 +131,44 @@ class Synchronize
                         songfilename = (eachsong.location?.lastPathComponent)!
                         
                         var folderLocation = destinationFolder.path + "/"
-                        var artistFolder: String
-                        var albumFolder: String
-                        var subDirectory: String
+
                         
-                        if let subfoldersA = eachsong.album.albumArtist
+                        
+                        
+                        if let song = eachsong.location?.lastPathComponent
                         {
-                            artistFolder = folderLocation + subfoldersA + "/"
-                            
-                            if let subfoldersB = eachsong.album.title
+                            if !folderItemsName.contains(song)
                             {
-                                albumFolder = artistFolder + subfoldersB + "/"
                                 
-                                myPath = albumFolder + songfilename
-                                
-                                if let song = eachsong.location?.lastPathComponent
+                                if eachsong.album.albumArtist?.count != nil && eachsong.album.albumArtist == eachsong.artist?.name
                                 {
-                                    if !folderItemsName.contains(song)
-                                    {
-                                        
-                                        try FileManager.default.copyItem(atPath: songpath, toPath: myPath)
-                                        // Update processInfo in ViewController
-                                        myDataRadio.DataRadio("NotificationPercent")
-                                        
-                                        num_copiedSongs+=1
-                                        print(num_copiedSongs)
-                                    }
+                                    myPath = folderLocation + eachsong.album.albumArtist! + "/" + eachsong.album.title! + "/" + song
+                                    
                                 }
+                                else if eachsong.album.albumArtist == "Various" || eachsong.album.albumArtist == "Various Artists" || eachsong.album.albumArtist == "Various Artist"
+                                {
+                                    myPath = folderLocation + "Various Artists"  + "/" + eachsong.album.title! + "/" + song
+                                    
+                                }
+                                else if eachsong.album.albumArtist?.count == nil && eachsong.album.albumArtist != eachsong.artist?.name
+                                {
+                                    myPath = folderLocation + (eachsong.artist?.name)! + "/" + eachsong.album.title! + "/" + song
+                                    
+                                }
+                                else
+                                {
+                                    myPath  = folderLocation + (eachsong.artist?.name)! + "/" + eachsong.album.title! + "/" + song
+                                    
+                                }
+                                
+                                
+                                
+                                try FileManager.default.copyItem(atPath: songpath, toPath: myPath)
+                                // Update processInfo in ViewController
+                                myDataRadio.DataRadio("NotificationPercent")
+                                
+                                num_copiedSongs+=1
+                                print(num_copiedSongs)
                             }
                         }
                     }
@@ -165,6 +176,7 @@ class Synchronize
                     {
                         isRunning = false
                         isCompleted = false
+                        myDataRadio.DataRadio("StopSync")
                         print("Stop sync")
                         return
                     }
@@ -176,11 +188,13 @@ class Synchronize
                 isRunning = false
                 isCompleted = false
                 print("Stop sync")
+                myDataRadio.DataRadio("StopSync")
                 return
             }
         }
         isRunning = false
         isCompleted = true
+        myDataRadio.DataRadio("StopSync")
     }
     
     

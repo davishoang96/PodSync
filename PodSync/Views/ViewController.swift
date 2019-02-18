@@ -49,20 +49,19 @@ class ViewController: NSViewController {
                         queue.async {
 
                             let songs = Utilities.getSong(name: self.selected_playlist)
-                                                        
-                            Utilities.createDirectory(songs)
                             
-                            //Synchronize.Sync(songs: songs, destinationFolder: UserDefaults.standard.getLocationURL())
+                            let songPath = Utilities.createSongPath(songs)
+                            Utilities.createDirectory(songPath)
+                                                        
+                            Synchronize.Sync(songs: songs, destinationFolder: UserDefaults.standard.getLocationURL())
 
                             DispatchQueue.main.async {
                                 if Synchronize.getCompleted() == true
                                 {
                                     alertBox.dialogOKCancel(question: "Alert", text: "Sync completed")
-                                    self.SyncBtn.title = "Sync"
+                                   
                                 }
-
                             }
-
                 }
             }
             else
@@ -135,8 +134,20 @@ class ViewController: NSViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(ProcessInfo), name: NSNotification.Name("NotificationPercent"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(RemainedPercent), name: NSNotification.Name("NotificationRemained"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(SyncLocation), name: NSNotification.Name("NotificationLocation"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(StopSync), name: NSNotification.Name("StopSync"), object: nil)
         
         
+    }
+    
+    @objc func StopSync(notification: Notification)
+    {
+        
+        
+        DispatchQueue.main.async {
+            self.ProgressBar.doubleValue = 0
+            self.SyncBtn.state = .off
+            self.SyncBtn.title = "Sync"
+        }
     }
     
     @objc func RemainedPercent(notification: Notification)

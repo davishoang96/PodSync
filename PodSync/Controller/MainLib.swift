@@ -317,18 +317,20 @@ class Utilities{
         }
     }
     
+    
     static func getAlbumName(_ songs: [ITLibMediaItem]) -> [String]
     {
         var items = [String]()
         for eachsong in songs
         {
-            if let albumTitle = eachsong.album.title
+            if let albumName = eachsong.album.title
             {
-                if !items.contains(albumTitle)
+                if !items.contains(albumName)
                 {
-                    items.append(albumTitle)
+                    items.append(albumName)
                 }
             }
+            
         }
         return items
     }
@@ -351,72 +353,75 @@ class Utilities{
     
     
     
-    static func createDirectory(_ songs: [ITLibMediaItem])
+    static func createSongPath(_ songs: [ITLibMediaItem]) -> [String]
     {
+        var result = [String]()
+        
         let SyncLocation = UserDefaults.standard.getLocationURL().path
-
+        
+        for eachsong in songs
+        {
+            
+            if eachsong.album.albumArtist?.count != nil && eachsong.album.albumArtist == eachsong.artist?.name
+            {
+                let path  = SyncLocation + "/" + eachsong.album.albumArtist! + "/" + eachsong.album.title!
+                
+                if !result.contains(path)
+                {
+                    print(path)
+                    result.append(path)
+                }
+                
+            }
+            else if eachsong.album.albumArtist == "Various" || eachsong.album.albumArtist == "Various Artists" || eachsong.album.albumArtist == "Various Artist"
+            {
+                let path  = SyncLocation + "/" + "Various Artists"  + "/" + eachsong.album.title!
+                
+                if !result.contains(path)
+                {
+                    print(path)
+                    result.append(path)
+                }
+            }
+            else if eachsong.album.albumArtist?.count == nil && eachsong.album.albumArtist != eachsong.artist?.name
+            {
+                let path  = SyncLocation + "/" + (eachsong.artist?.name)! + "/" + eachsong.album.title!
+                
+                if !result.contains(path)
+                {
+                    print("->",path)
+                    result.append(path)
+                }
+                
+            }
+            else
+            {
+                let path  = SyncLocation + "/" + (eachsong.artist?.name)! + "/" + eachsong.album.title!
+                
+                if !result.contains(path)
+                {
+                    print("-->",path)
+                    result.append(path)
+                }
+            }
+        }
+        print(result.count)
+        return result
+    }
+    
+    static func createDirectory(_ paths: [String])
+    {
         do
         {
-            for eachsong in songs
+            for eachPath in paths
             {
-                
-                if let artistName = eachsong.artist?.name
-                {
-                    if let albumArtists = eachsong.album.albumArtist
-                    {
-                        if artistName == albumArtists
-                        {
-                            let path  = SyncLocation + "/" + artistName + "/" + eachsong.album.title!
-                            print("createDirectory:",path)
-                            try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
-                        }
-                        else
-                        {
-                            print(artistName)
-                            let path  = SyncLocation + "/" + artistName + "/" + eachsong.album.title!
-                            print("createDirectory2:",path)
-                            try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
-                        }
-                
-//                if let albumArtists = eachsong.album.albumArtist
-//                {
-//                    if let aritstName = eachsong.artist?.name
-//                    {
-//                        if albumArtists == aritstName
-//                        {
-//                            let path  = SyncLocation + "/" + albumArtists + "/" + eachsong.album.title!
-//                            print(path)
-//                            try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
-//                        }
-//                        else if albumArtists == "Various"
-//                        {
-//                            let path  = SyncLocation + "/" + "Various" + "/" + eachsong.album.title!
-//
-//                            try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
-//                        }
-//                        else if albumArtists == "Various Artists"
-//                        {
-//                            let path  = SyncLocation + "/" + "Various Artists" + "/" + eachsong.album.title!
-//
-//                            try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
-//                        }
-//                        else if albumArtists == "Various Artist"
-//                        {
-//                            let path  = SyncLocation + "/" + "Various Artist" + "/" + eachsong.album.title!
-//
-//                            try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
-//
-//                        }
-          
-                        
-                    }
-                }
+                try fileManager.createDirectory(atPath: eachPath, withIntermediateDirectories: true, attributes: nil)
             }
         }
         catch
         {
             print(error.localizedDescription)
-            return
         }
+     
     }
 }

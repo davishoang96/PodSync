@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		440BE9B3221ADF4800EA2AE5 /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB09EEB21F03F8C006B662C /* iTunesLibrary.framework */; };
 		443535AC2211A9FF002E34C4 /* Percent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443535AB2211A9FF002E34C4 /* Percent.swift */; };
 		4448309E22184E0E0045AD79 /* DataRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448309D22184E0E0045AD79 /* DataRadio.swift */; };
 		444830A0221851740045AD79 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448309F221851740045AD79 /* Message.swift */; };
@@ -22,7 +23,6 @@
 		8D15680021F094980078483F /* MainLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1567FF21F094980078483F /* MainLib.swift */; };
 		8D1F337A220D33F600389774 /* MainSyncFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1F3379220D33F600389774 /* MainSyncFunc.swift */; };
 		8D33C13621F1624D004F0814 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33C13521F1624C004F0814 /* UserSettings.swift */; };
-		8DB09EEC21F03F8C006B662C /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB09EEB21F03F8C006B662C /* iTunesLibrary.framework */; };
 		8DB09EF121F05A42006B662C /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB09EF021F05A42006B662C /* CustomTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -75,7 +75,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8DB09EEC21F03F8C006B662C /* iTunesLibrary.framework in Frameworks */,
+				440BE9B3221ADF4800EA2AE5 /* iTunesLibrary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,7 +504,7 @@
 				DEVELOPMENT_TEAM = J247BFW6KA;
 				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks/iTunesLibrary.framework;
 				INFOPLIST_FILE = PodSync/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks ${DT_TOOLCHAIN_DIR}/usr/lib/swift/macosx/";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = EDI.PodSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -523,7 +523,7 @@
 				DEVELOPMENT_TEAM = J247BFW6KA;
 				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks/iTunesLibrary.framework;
 				INFOPLIST_FILE = PodSync/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks ${DT_TOOLCHAIN_DIR}/usr/lib/swift/macosx/";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				PRODUCT_BUNDLE_IDENTIFIER = EDI.PodSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
