@@ -690,14 +690,14 @@
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <scrollView fixedFrame="YES" autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" horizontalScrollElasticity="none" verticalScrollElasticity="none" translatesAutoresizingMaskIntoConstraints="NO" id="Ajg-zR-NdP">
-                                <rect key="frame" x="20" y="98" width="250" height="330"/>
+                                <rect key="frame" x="20" y="70" width="250" height="358"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <clipView key="contentView" ambiguous="YES" copiesOnScroll="NO" id="Ltn-Xk-xHW">
-                                    <rect key="frame" x="1" y="0.0" width="248" height="329"/>
+                                    <rect key="frame" x="1" y="0.0" width="248" height="357"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="JTO-HS-Vqa" viewBased="YES" id="h1o-ou-wmE">
-                                            <rect key="frame" x="0.0" y="0.0" width="248" height="304"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="248" height="332"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
                                             <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -759,31 +759,12 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
                             </scrollView>
-                            <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1pT-t5-PNR">
-                                <rect key="frame" x="17" y="66" width="204" height="25"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <pathCell key="cell" lineBreakMode="truncatingHead" selectable="YES" editable="YES" continuous="YES" alignment="left" pathStyle="popUp" id="qE7-oq-1Bq">
-                                    <font key="font" metaFont="system"/>
-                                    <url key="url" string="file://localhost/Applications/"/>
-                                </pathCell>
-                                <connections>
-                                    <action selector="onClickPathControl:" target="XfG-lQ-9wD" id="mlf-Ri-VKE"/>
-                                </connections>
-                            </pathControl>
                             <progressIndicator wantsLayer="YES" fixedFrame="YES" maxValue="100" style="bar" translatesAutoresizingMaskIntoConstraints="NO" id="Xr2-0a-h5v">
                                 <rect key="frame" x="20" y="43" width="250" height="20"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </progressIndicator>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kCU-tF-dT7">
-                                <rect key="frame" x="250" y="70" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAdvanced" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" sound="Basso" inset="2" id="a3b-D7-xjI">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                            </button>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Guc-2j-aZF">
-                                <rect key="frame" x="14" y="13" width="262" height="32"/>
+                                <rect key="frame" x="14" y="13" width="234" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Sync" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KC6-yf-d8t">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -796,10 +777,21 @@ DQ
                                     <action selector="onClickSync:" target="XfG-lQ-9wD" id="Qry-e7-B3X"/>
                                 </connections>
                             </button>
+                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kCU-tF-dT7">
+                                <rect key="frame" x="250" y="20" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAdvanced" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="a3b-D7-xjI">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="onClickSetting:" target="XfG-lQ-9wD" id="qfL-KM-Qe9"/>
+                                    <segue destination="W9O-QK-ZKy" kind="sheet" id="XvB-I2-OHF"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="PathControl" destination="1pT-t5-PNR" id="aKH-t0-LpN"/>
                         <outlet property="ProgressBar" destination="Xr2-0a-h5v" id="hQ8-S2-5JS"/>
                         <outlet property="SyncBtn" destination="Guc-2j-aZF" id="yWm-lg-SfG"/>
                         <outlet property="tableView" destination="h1o-ou-wmE" id="96t-oJ-o1w"/>
@@ -809,9 +801,111 @@ DQ
             </objects>
             <point key="canvasLocation" x="-742" y="745"/>
         </scene>
+        <!--Settings View Controller-->
+        <scene sceneID="1YP-an-2zq">
+            <objects>
+                <viewController storyboardIdentifier="SettingVC" id="W9O-QK-ZKy" customClass="SettingsViewController" customModule="PodSync" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" id="kA8-dY-5T2">
+                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Oi7-4H-17g">
+                                <rect key="frame" x="188" y="5" width="75" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Close" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="xTh-yw-BnN">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="dismissController:" target="W9O-QK-ZKy" id="Ubq-zQ-gzP"/>
+                                </connections>
+                            </button>
+                            <box fixedFrame="YES" title="Settings" translatesAutoresizingMaskIntoConstraints="NO" id="4cn-wu-Uu3">
+                                <rect key="frame" x="17" y="41" width="416" height="251"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" id="QNI-LQ-xXh">
+                                    <rect key="frame" x="3" y="3" width="410" height="233"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qte-9i-Vun">
+                                            <rect key="frame" x="18" y="172" width="107" height="18"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <buttonCell key="cell" type="check" title="Always on top" bezelStyle="regularSquare" imagePosition="left" inset="2" id="o9t-xm-GyT">
+                                                <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                                <font key="font" metaFont="system"/>
+                                            </buttonCell>
+                                            <connections>
+                                                <action selector="onCheckAlwaysOnTop:" target="W9O-QK-ZKy" id="iF3-d6-EVD"/>
+                                            </connections>
+                                        </button>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mda-AK-AxR">
+                                            <rect key="frame" x="18" y="196" width="60" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Window: " id="bNS-Ra-EPM">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4Kr-LS-c7W">
+                                            <rect key="frame" x="18" y="138" width="152" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Select destination folder" id="JuP-cs-FUZ">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AsP-Kj-wd6">
+                                            <rect key="frame" x="20" y="106" width="204" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <pathCell key="cell" selectable="YES" editable="YES" alignment="left" id="nj0-7q-KeF">
+                                                <font key="font" metaFont="system"/>
+                                                <url key="url" string="file://localhost/Applications/"/>
+                                            </pathCell>
+                                            <connections>
+                                                <action selector="onClickPathControl:" target="W9O-QK-ZKy" id="cW2-Zd-9c9"/>
+                                            </connections>
+                                        </pathControl>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vd1-Lu-wcm">
+                                            <rect key="frame" x="18" y="81" width="67" height="17"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" title="Sub folder" id="rhw-qm-juW">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                        <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="afD-tT-GNd">
+                                            <rect key="frame" x="20" y="51" width="370" height="22"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="Udw-2q-lq7">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                            <connections>
+                                                <action selector="onTypeTextField:" target="W9O-QK-ZKy" id="swh-mH-Aq6"/>
+                                            </connections>
+                                        </textField>
+                                    </subviews>
+                                </view>
+                            </box>
+                        </subviews>
+                    </view>
+                    <connections>
+                        <outlet property="CheckAlwaysOnTop" destination="qte-9i-Vun" id="FzY-IC-2Dj"/>
+                        <outlet property="PathControl" destination="AsP-Kj-wd6" id="2NI-nD-b4I"/>
+                        <outlet property="myTextField" destination="afD-tT-GNd" id="uEc-IQ-Z2l"/>
+                        <outlet property="onClickAlwasyOnTop" destination="qte-9i-Vun" id="khY-a8-9L9"/>
+                    </connections>
+                </viewController>
+                <customObject id="aEK-YV-E4e" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-119" y="745"/>
+        </scene>
     </scenes>
     <resources>
         <image name="NSAdvanced" width="32" height="32"/>
-        <sound name="Basso"/>
     </resources>
 </document>

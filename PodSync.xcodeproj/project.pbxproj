@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		443535AC2211A9FF002E34C4 /* Percent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443535AB2211A9FF002E34C4 /* Percent.swift */; };
+		4448309E22184E0E0045AD79 /* DataRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448309D22184E0E0045AD79 /* DataRadio.swift */; };
+		444830A0221851740045AD79 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448309F221851740045AD79 /* Message.swift */; };
+		447D203F22194535007183E9 /* CheckDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D203E22194535007183E9 /* CheckDirectory.swift */; };
+		449410F02216E82C00514F14 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449410EF2216E82C00514F14 /* SettingsViewController.swift */; };
 		44DDBB1021F03F2100DA0735 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DDBB0F21F03F2100DA0735 /* AppDelegate.swift */; };
 		44DDBB1221F03F2100DA0735 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DDBB1121F03F2100DA0735 /* ViewController.swift */; };
 		44DDBB1421F03F2100DA0735 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 44DDBB1321F03F2100DA0735 /* Assets.xcassets */; };
@@ -41,6 +45,10 @@
 
 /* Begin PBXFileReference section */
 		443535AB2211A9FF002E34C4 /* Percent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Percent.swift; sourceTree = "<group>"; };
+		4448309D22184E0E0045AD79 /* DataRadio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRadio.swift; sourceTree = "<group>"; };
+		4448309F221851740045AD79 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		447D203E22194535007183E9 /* CheckDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDirectory.swift; sourceTree = "<group>"; };
+		449410EF2216E82C00514F14 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		44DDBB0C21F03F2000DA0735 /* PodSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		44DDBB0F21F03F2100DA0735 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44DDBB1121F03F2100DA0735 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; wrapsLines = 0; };
@@ -144,6 +152,7 @@
 		8D33C13221F161A1004F0814 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				449410EF2216E82C00514F14 /* SettingsViewController.swift */,
 				44FBF69A22158C7900E28295 /* AlertBox.swift */,
 				8DB09EF021F05A42006B662C /* CustomTableViewCell.swift */,
 				44DDBB1121F03F2100DA0735 /* ViewController.swift */,
@@ -158,6 +167,9 @@
 				8D1567FF21F094980078483F /* MainLib.swift */,
 				8D1F3379220D33F600389774 /* MainSyncFunc.swift */,
 				443535AB2211A9FF002E34C4 /* Percent.swift */,
+				4448309D22184E0E0045AD79 /* DataRadio.swift */,
+				4448309F221851740045AD79 /* Message.swift */,
+				447D203E22194535007183E9 /* CheckDirectory.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -318,12 +330,16 @@
 			files = (
 				8D15680021F094980078483F /* MainLib.swift in Sources */,
 				443535AC2211A9FF002E34C4 /* Percent.swift in Sources */,
+				447D203F22194535007183E9 /* CheckDirectory.swift in Sources */,
 				44FBF69B22158C7900E28295 /* AlertBox.swift in Sources */,
 				8D1F337A220D33F600389774 /* MainSyncFunc.swift in Sources */,
 				8DB09EF121F05A42006B662C /* CustomTableViewCell.swift in Sources */,
+				4448309E22184E0E0045AD79 /* DataRadio.swift in Sources */,
+				444830A0221851740045AD79 /* Message.swift in Sources */,
 				44DDBB1221F03F2100DA0735 /* ViewController.swift in Sources */,
 				8D33C13621F1624D004F0814 /* UserSettings.swift in Sources */,
 				44DDBB1021F03F2100DA0735 /* AppDelegate.swift in Sources */,
+				449410F02216E82C00514F14 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

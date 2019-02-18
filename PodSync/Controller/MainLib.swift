@@ -12,7 +12,7 @@ import iTunesLibrary
 
 class Utilities{
     
-    private static let library = try! ITLibrary.init(apiVersion: "1.1")
+    public static let myItuneLibrary = getLibrary()
     
     static let fileManager = FileManager.default
     
@@ -20,10 +20,35 @@ class Utilities{
     
     private static var totalsong: Double?
 
-    
-    static func reloadLibrary()
+    private static func LoadLibrary() -> ITLibrary?
     {
-        library.reloadData()
+        do{
+            let library = try ITLibrary.init(apiVersion: "1.1")
+            return library
+        }
+        catch
+        {
+            print(error.localizedDescription)
+            return myItuneLibrary
+        }
+    }
+    
+    private static func getLibrary() -> ITLibrary
+    {
+        if let library = LoadLibrary()
+        {
+            return library
+        }
+        else
+        {
+            return myItuneLibrary
+        }
+    }
+    
+    
+    public static func reloadLibrary()
+    {
+        myItuneLibrary.reloadData()
     }
     
     static func getUserHomeDirectory() -> URL
@@ -49,9 +74,9 @@ class Utilities{
     
     static func getPlaylist() -> [String]
     {
-        library.reloadData()
+        myItuneLibrary.reloadData()
         
-        let playlists = library.allPlaylists
+        let playlists = myItuneLibrary.allPlaylists
         var temp_plist = [String]()
         var p = [String]()
         
@@ -71,7 +96,7 @@ class Utilities{
         var item = [ITLibMediaItem]()
         
         
-        for eachplaylist in library.allPlaylists
+        for eachplaylist in myItuneLibrary.allPlaylists
         {
             for pls in name
             {
@@ -89,6 +114,8 @@ class Utilities{
         totalsong = Double(item.count)
         return item
     }
+    
+    
     
     static func getTotalSong() -> Double
     {
@@ -116,21 +143,69 @@ class Utilities{
     {
         var files = [URL]()
         
+        do {
+            let resourceKeys : [URLResourceKey] = [.creationDateKey, .isDirectoryKey]
+            let documentsURL = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            let enumerator = FileManager.default.enumerator(at: destinationFolder,
+                                                            includingPropertiesForKeys: resourceKeys,
+                                                            options: [.skipsHiddenFiles], errorHandler: { (url, error) -> Bool in
+                                                                print("directoryEnumerator error at \(url): ", error)
+                                                                return true
+            })!
+            
+            for case let fileURL as URL in enumerator {
+                //let resourceValues = try fileURL.resourceValues(forKeys: Set(resourceKeys))
+                files.append(fileURL)
+            }
+            return files
+        } catch {
+            print(error)
+            return nil
+        }        
+    }
+    
+    static func get_subDirectory(_ directories: [URL]) -> [URL]?
+    {
+        var subDirectory = [URL]()
+        
+        for eachDirectory in directories
+        {
+            if eachDirectory.isDirectory
+            {
+                if !subDirectory.contains(eachDirectory)
+                {
+                    subDirectory.append(eachDirectory)
+                }
+            }
+        }
+        return subDirectory
+    }
+    
+    static func removeEmptyDirectory(_ directories: [URL])
+    {
         do
         {
-            let contents = try fileManager.contentsOfDirectory(at: destinationFolder, includingPropertiesForKeys: nil, options: FileManager.DirectoryEnumerationOptions.skipsHiddenFiles)
-            for eachfile in contents
+            for eachDirectory in directories
             {
-                files.append(eachfile)
+                let data = try fileManager.contentsOfDirectory(atPath: eachDirectory.path)
+                if data.isEmpty
+                {
+                    print("RemoveEmptyDirectory:","Empty", eachDirectory.path)
+                    try fileManager.trashItem(at: eachDirectory, resultingItemURL: nil)
+                }
+                else
+                {
+                    print("RemoveEmptyDirectory:","!Empty", eachDirectory.path)
+                    if data.contains(".DS_Store")
+                    {
+                        print("RemoveEmptyDirectory:","Contains .DS_Store", eachDirectory.path)
+                    }
+                }
             }
-            
-            return files
-            
         }
         catch
         {
             print(error.localizedDescription)
-            return nil
         }
     }
     
@@ -163,21 +238,22 @@ class Utilities{
     static func Remove_NonExistItems(itemURL: [URL], songName: [String])
     {
         var i = 0
+        
         do
         {
             for eachitem in itemURL
             {
-                if songName.contains(eachitem.lastPathComponent)
+                if !eachitem.isDirectory
                 {
-                    //print(i, "MATCHED", eachitem.lastPathComponent)
+                    print(eachitem.lastPathComponent)
+                    if !songName.contains(eachitem.lastPathComponent)
+                    {
+                        print(i, "NOT MATCHED", eachitem.absoluteString)
+                        
+                        try fileManager.trashItem(at: eachitem, resultingItemURL: nil)
+                    }
+                    i+=1
                 }
-                else
-                {
-                    print(i, "NOT MATCHED", eachitem.lastPathComponent)
-                    
-                    try fileManager.trashItem(at: eachitem, resultingItemURL: nil)
-                }
-                i+=1
             }
         }
         catch
@@ -239,5 +315,108 @@ class Utilities{
             print(error.localizedDescription)
             return nil
         }
-    }    
+    }
+    
+    static func getAlbumName(_ songs: [ITLibMediaItem]) -> [String]
+    {
+        var items = [String]()
+        for eachsong in songs
+        {
+            if let albumTitle = eachsong.album.title
+            {
+                if !items.contains(albumTitle)
+                {
+                    items.append(albumTitle)
+                }
+            }
+        }
+        return items
+    }
+    
+    static func getArtistName(_ songs: [ITLibMediaItem]) -> [String]
+    {
+        var items = [String]()
+        for eachsong in songs
+        {
+            if let artistName = eachsong.artist?.name
+            {
+                if !items.contains(artistName)
+                {
+                    items.append(artistName)
+                }
+            }
+        }
+        return items
+    }
+    
+    
+    
+    static func createDirectory(_ songs: [ITLibMediaItem])
+    {
+        let SyncLocation = UserDefaults.standard.getLocationURL().path
+
+        do
+        {
+            for eachsong in songs
+            {
+                
+                if let artistName = eachsong.artist?.name
+                {
+                    if let albumArtists = eachsong.album.albumArtist
+                    {
+                        if artistName == albumArtists
+                        {
+                            let path  = SyncLocation + "/" + artistName + "/" + eachsong.album.title!
+                            print("createDirectory:",path)
+                            try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+                        }
+                        else
+                        {
+                            print(artistName)
+                            let path  = SyncLocation + "/" + artistName + "/" + eachsong.album.title!
+                            print("createDirectory2:",path)
+                            try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+                        }
+                
+//                if let albumArtists = eachsong.album.albumArtist
+//                {
+//                    if let aritstName = eachsong.artist?.name
+//                    {
+//                        if albumArtists == aritstName
+//                        {
+//                            let path  = SyncLocation + "/" + albumArtists + "/" + eachsong.album.title!
+//                            print(path)
+//                            try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+//                        }
+//                        else if albumArtists == "Various"
+//                        {
+//                            let path  = SyncLocation + "/" + "Various" + "/" + eachsong.album.title!
+//
+//                            try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+//                        }
+//                        else if albumArtists == "Various Artists"
+//                        {
+//                            let path  = SyncLocation + "/" + "Various Artists" + "/" + eachsong.album.title!
+//
+//                            try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+//                        }
+//                        else if albumArtists == "Various Artist"
+//                        {
+//                            let path  = SyncLocation + "/" + "Various Artist" + "/" + eachsong.album.title!
+//
+//                            try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+//
+//                        }
+          
+                        
+                    }
+                }
+            }
+        }
+        catch
+        {
+            print(error.localizedDescription)
+            return
+        }
+    }
 }

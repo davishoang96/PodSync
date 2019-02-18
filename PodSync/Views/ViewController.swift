@@ -12,16 +12,18 @@ import iTunesLibrary
 
 
 class ViewController: NSViewController {
-
+    
     var selected_playlist = [String]()
     var location: URL?
     
-    let library = try! ITLibrary.init(apiVersion: "1.1")
+    let library = Utilities.myItuneLibrary
     
     var thisPlaylist = TablePlaylist.init(playlist: Utilities.getPlaylist())
 
     @IBOutlet weak var tableView: NSTableView!
     @IBAction func onClickSync(_ sender: NSButton) {
+        
+        
         
         if Synchronize.getstop() == true
         {
@@ -31,6 +33,8 @@ class ViewController: NSViewController {
         }
         else
         {
+            
+
             let command = alertBox.dialogOKCancel(question: "Sync", text: "Sync now?")
             if command == true && !selected_playlist.isEmpty
             {
@@ -39,25 +43,26 @@ class ViewController: NSViewController {
                 ProgressBar.doubleValue = 0
                 Synchronize.stop(flag: true)
                 print(Synchronize.getstop())
-                
+
                         let queue = DispatchQueue(label: "work-queue")
-                
+
                         queue.async {
-                
-                            if let FolderLocation = self.location
-                            {
-                                Synchronize.Sync(songs: Utilities.getSong(name: self.selected_playlist), destinationFolder: FolderLocation)
-                                
-                                DispatchQueue.main.async {
-                                    if Synchronize.getCompleted() == true
-                                    {
-                                        alertBox.dialogOKCancel(question: "Alert", text: "Sync completed")
-                                        self.SyncBtn.title = "Sync"
-                                    }
-                                    
+
+                            let songs = Utilities.getSong(name: self.selected_playlist)
+                                                        
+                            Utilities.createDirectory(songs)
+                            
+                            //Synchronize.Sync(songs: songs, destinationFolder: UserDefaults.standard.getLocationURL())
+
+                            DispatchQueue.main.async {
+                                if Synchronize.getCompleted() == true
+                                {
+                                    alertBox.dialogOKCancel(question: "Alert", text: "Sync completed")
+                                    self.SyncBtn.title = "Sync"
                                 }
+
                             }
-        
+
                 }
             }
             else
@@ -72,38 +77,8 @@ class ViewController: NSViewController {
     @IBOutlet weak var ProgressBar: NSProgressIndicator!
     @IBOutlet weak var SyncBtn: NSButton!
     
-    
-    
-    @IBOutlet weak var PathControl: NSPathControl!
-    @IBAction func onClickPathControl(_ sender: NSPathControl) {
-        let dialog = NSOpenPanel()
-    
-        dialog.title                   = "Choose a destination to sync";
-        dialog.showsResizeIndicator    = true;
-        dialog.showsHiddenFiles        = false;
-        dialog.canChooseDirectories    = true;
-        dialog.canCreateDirectories    = true;
-        dialog.allowsMultipleSelection = false;
-        dialog.beginSheetModal(for: self.view.window!, completionHandler: { num in
-            
-            if num == NSApplication.ModalResponse.OK {
-                
-                let result = dialog.url
-                
-                if (result != nil) {
-                    
-                    self.PathControl.url = result?.absoluteURL
-                    
-                    UserDefaults.standard.setLocationURL(value: result!)
-                                        
-                    self.location = result
-                    
-                    
-                }
-            } else {
-                print("nothing chosen")
-            }
-        })
+    @IBAction func onClickSetting(_ sender: NSButton) {
+       
     }
     
     //MARK: - Reload itunes library after the application has been focus
@@ -125,18 +100,16 @@ class ViewController: NSViewController {
         print("LIBRARY RELOADED")
     }
     
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+ 
         // 1. Load saved sync folder location
         let lastDirectory = UserDefaults.standard.getLocationURL()
         
         if FileManager.default.fileExists(atPath: lastDirectory.path)
         {
-            self.PathControl.url = lastDirectory
-            
             location = lastDirectory
             
             print(lastDirectory.path)
@@ -146,6 +119,7 @@ class ViewController: NSViewController {
             // REMOVE destinationURL key if needed
             let removeURL = UserDefaults.standard
             removeURL.removeObject(forKey: "destinationURL")
+            alertBox.dialogOKCancel(question: "Alert", text: "Cannot found the previous sync folder. Please choose other folder to sync.")
         }
         
 
@@ -160,6 +134,8 @@ class ViewController: NSViewController {
         // Sync percents notification center
         NotificationCenter.default.addObserver(self, selector: #selector(ProcessInfo), name: NSNotification.Name("NotificationPercent"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(RemainedPercent), name: NSNotification.Name("NotificationRemained"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SyncLocation), name: NSNotification.Name("NotificationLocation"), object: nil)
+        
         
     }
     
@@ -171,6 +147,13 @@ class ViewController: NSViewController {
             self.ProgressBar.doubleValue = percent
         }
         
+    }
+    
+    @objc func SyncLocation(notification: Notification)
+    {
+        let ChosenLocation = UserDefaults.standard.getLocationURL()
+        
+        location = ChosenLocation
     }
     
     @objc func ProcessInfo(notification: Notification)

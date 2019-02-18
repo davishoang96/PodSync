@@ -71,6 +71,7 @@ class Synchronize
             var songpath:String
             var songfilename: String
             var myPath:String
+            var subPath: String
             
             // 1. Get file URLs in Synced folder
             if let item = Utilities.Get_FolderItemURL(destinationFolder)
@@ -78,8 +79,11 @@ class Synchronize
                 folderItemsURL = item
             }
             
+
             // 2. Get file last path component in Synced folder
             folderItemsName = Utilities.Get_LastPathComponent(destinationFolder)
+            
+            
             
             // 3. Get song name from the array
             songName = Utilities.Get_SongName(songs)
@@ -87,15 +91,22 @@ class Synchronize
             // 4. Compare playlists and folders
             // Remove if item in folder not match with playlist
             Utilities.Remove_NonExistItems(itemURL: folderItemsURL, songName: songName)
+            if let data = Utilities.get_subDirectory(folderItemsURL)
+            {
+                //Utilities.removeEmptyDirectory(data)
+            }
+            
+            
+
             
             // Get num of existed songs to calculate percent of sync
             num_existedSongs = Utilities.get_numOf_ExistedSongs(itemURL: folderItemsURL, songName: songName)
             
             print("RemainedPercent:",SyncPercent.remainedPercent())
             print("PercentEachFile:",SyncPercent.calpercent())
-                
-            nc.post(name: NSNotification.Name("NotificationRemained"), object: self)
+
             
+            myDataRadio.DataRadio("NotificationRemained")
             
             
             // BETA TEST
@@ -118,24 +129,35 @@ class Synchronize
                     {
                         songpath = (eachsong.location?.path)!
                         songfilename = (eachsong.location?.lastPathComponent)!
-                        myPath = destinationFolder.path + "/" + songfilename
                         
+                        var folderLocation = destinationFolder.path + "/"
+                        var artistFolder: String
+                        var albumFolder: String
+                        var subDirectory: String
                         
-                        if let song = eachsong.location?.lastPathComponent
+                        if let subfoldersA = eachsong.album.albumArtist
                         {
-                            if folderItemsName.contains(song)
+                            artistFolder = folderLocation + subfoldersA + "/"
+                            
+                            if let subfoldersB = eachsong.album.title
                             {
+                                albumFolder = artistFolder + subfoldersB + "/"
                                 
-                            }
-                            else
-                            {
-                                try FileManager.default.copyItem(atPath: songpath, toPath: myPath)
+                                myPath = albumFolder + songfilename
                                 
-                                // Update processInfo in ViewController
-                                nc.post(name: NSNotification.Name("NotificationPercent"), object: self)
-                                
-                                num_copiedSongs+=1
-                                print(num_copiedSongs)
+                                if let song = eachsong.location?.lastPathComponent
+                                {
+                                    if !folderItemsName.contains(song)
+                                    {
+                                        
+                                        try FileManager.default.copyItem(atPath: songpath, toPath: myPath)
+                                        // Update processInfo in ViewController
+                                        myDataRadio.DataRadio("NotificationPercent")
+                                        
+                                        num_copiedSongs+=1
+                                        print(num_copiedSongs)
+                                    }
+                                }
                             }
                         }
                     }
@@ -151,6 +173,9 @@ class Synchronize
             catch
             {
                 print(error.localizedDescription)
+                isRunning = false
+                isCompleted = false
+                print("Stop sync")
                 return
             }
         }

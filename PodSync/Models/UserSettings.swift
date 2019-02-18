@@ -15,7 +15,22 @@ struct TablePlaylist{
     var playlist: [String]
 }
 
+struct folder {
+    var FolderLocationURL: URL
+}
+
+
 extension UserDefaults{
+    
+    func setAlwaysOnTop(value: Bool)
+    {
+        set(value, forKey: "WindowAlwaysOnTop")
+    }
+    
+    func getAlwaysOnTop() -> Bool
+    {
+        return bool(forKey: "WindowAlwaysOnTop")
+    }
     
     func setUserFolder(value: URL){
         set(value, forKey: "UserHomeDirectory")
@@ -42,8 +57,16 @@ extension UserDefaults{
         set(value, forKey: "destinationURL")
     }
     
-    func getLocation() -> String{
-        return string(forKey: "destinationFolder")!
+    func getLocation() -> String
+    {
+        if let location = string(forKey: "destincationFolder")
+        {
+            return location
+        }
+        else
+        {
+            return "nil"
+        }
     }
     
     func getLocationURL() -> URL
