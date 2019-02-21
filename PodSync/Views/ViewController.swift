@@ -23,8 +23,6 @@ class ViewController: NSViewController {
     @IBOutlet weak var tableView: NSTableView!
     @IBAction func onClickSync(_ sender: NSButton) {
         
-        
-        
         if Synchronize.getstop() == true
         {
             SyncBtn.title = "Sync"
@@ -33,8 +31,6 @@ class ViewController: NSViewController {
         }
         else
         {
-            
-
             let command = alertBox.dialogOKCancel(question: "Sync", text: "Sync now?")
             if command == true && !selected_playlist.isEmpty
             {
@@ -44,24 +40,24 @@ class ViewController: NSViewController {
                 Synchronize.stop(flag: true)
                 print(Synchronize.getstop())
 
-                        let queue = DispatchQueue(label: "work-queue")
+                let queue = DispatchQueue(label: "work-queue")
 
-                        queue.async {
+                queue.async {
 
-                            let songs = Utilities.getSong(name: self.selected_playlist)
+                    let songs = Utilities.getSong(name: self.selected_playlist)
                             
-                            let songPath = Utilities.createSongPath(songs)
-                            Utilities.createDirectory(songPath)
-                                                        
-                            Synchronize.Sync(songs: songs, destinationFolder: UserDefaults.standard.getLocationURL())
+                    
+                    
+                    
+                    Synchronize.Sync(songs: songs, destinationFolder: UserDefaults.standard.getLocationURL())
 
-                            DispatchQueue.main.async {
-                                if Synchronize.getCompleted() == true
-                                {
-                                    alertBox.dialogOKCancel(question: "Alert", text: "Sync completed")
-                                   
-                                }
-                            }
+                    DispatchQueue.main.async {
+                        if Synchronize.getCompleted() == true
+                        {
+                            alertBox.dialogOKCancel(question: "Alert", text: "Sync completed")
+                            
+                        }
+                    }
                 }
             }
             else
@@ -107,20 +103,13 @@ class ViewController: NSViewController {
         // 1. Load saved sync folder location
         let lastDirectory = UserDefaults.standard.getLocationURL()
         
-        if FileManager.default.fileExists(atPath: lastDirectory.path)
+        if !FileManager.default.fileExists(atPath: lastDirectory.path)
         {
-            location = lastDirectory
-            
-            print(lastDirectory.path)
-        }
-        else
-        {
-            // REMOVE destinationURL key if needed
             let removeURL = UserDefaults.standard
             removeURL.removeObject(forKey: "destinationURL")
             alertBox.dialogOKCancel(question: "Alert", text: "Cannot found the previous sync folder. Please choose other folder to sync.")
+
         }
-        
 
         // Reload library after users' modification from iTunes
         // Library will reload after users focus on PodSync's window
@@ -141,8 +130,6 @@ class ViewController: NSViewController {
     
     @objc func StopSync(notification: Notification)
     {
-        
-        
         DispatchQueue.main.async {
             self.ProgressBar.doubleValue = 0
             self.SyncBtn.state = .off

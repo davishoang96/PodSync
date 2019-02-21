@@ -74,14 +74,14 @@ class Synchronize
             
             
             // 1. Get file URLs in Synced folder
-            if let item = Utilities.Get_FolderItemURL(destinationFolder)
+            if let item = DirectoryUtilities.Get_FolderItemURL(destinationFolder)
             {
                 folderItemsURL = item
             }
             
 
             // 2. Get file last path component in Synced folder
-            folderItemsName = Utilities.Get_LastPathComponent(destinationFolder)
+            folderItemsName = DirectoryUtilities.Get_LastPathComponent(destinationFolder)
             
             
             
@@ -91,11 +91,15 @@ class Synchronize
             // 4. Compare playlists and folders
             // Remove if item in folder not match with playlist
             Utilities.Remove_NonExistItems(itemURL: folderItemsURL, songName: songName)
-            if let data = Utilities.get_subDirectory(folderItemsURL)
+            let songPath = DirectoryUtilities.createSongPath(songs)
+            
+            if let items = DirectoryUtilities.Get_FolderItemURL(UserDefaults.standard.getLocationURL())
             {
-                //Utilities.removeEmptyDirectory(data)
+                DirectoryUtilities.get_subDirectory(items)
+                DirectoryUtilities.removeEmptyDirectory(items, Utilities.getArtistName(songs))
             }
             
+            DirectoryUtilities.createDirectory(songPath)
             
             
             

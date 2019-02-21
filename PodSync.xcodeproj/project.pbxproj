@@ -11,6 +11,7 @@
 		443535AC2211A9FF002E34C4 /* Percent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443535AB2211A9FF002E34C4 /* Percent.swift */; };
 		4448309E22184E0E0045AD79 /* DataRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448309D22184E0E0045AD79 /* DataRadio.swift */; };
 		444830A0221851740045AD79 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448309F221851740045AD79 /* Message.swift */; };
+		445B9192221EC81300915412 /* DirectoryUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445B9191221EC81300915412 /* DirectoryUtilities.swift */; };
 		447D203F22194535007183E9 /* CheckDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D203E22194535007183E9 /* CheckDirectory.swift */; };
 		449410F02216E82C00514F14 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449410EF2216E82C00514F14 /* SettingsViewController.swift */; };
 		44DDBB1021F03F2100DA0735 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DDBB0F21F03F2100DA0735 /* AppDelegate.swift */; };
@@ -47,6 +48,7 @@
 		443535AB2211A9FF002E34C4 /* Percent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Percent.swift; sourceTree = "<group>"; };
 		4448309D22184E0E0045AD79 /* DataRadio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRadio.swift; sourceTree = "<group>"; };
 		4448309F221851740045AD79 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		445B9191221EC81300915412 /* DirectoryUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryUtilities.swift; sourceTree = "<group>"; };
 		447D203E22194535007183E9 /* CheckDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDirectory.swift; sourceTree = "<group>"; };
 		449410EF2216E82C00514F14 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		44DDBB0C21F03F2000DA0735 /* PodSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -170,6 +172,7 @@
 				4448309D22184E0E0045AD79 /* DataRadio.swift */,
 				4448309F221851740045AD79 /* Message.swift */,
 				447D203E22194535007183E9 /* CheckDirectory.swift */,
+				445B9191221EC81300915412 /* DirectoryUtilities.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -328,6 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				445B9192221EC81300915412 /* DirectoryUtilities.swift in Sources */,
 				8D15680021F094980078483F /* MainLib.swift in Sources */,
 				443535AC2211A9FF002E34C4 /* Percent.swift in Sources */,
 				447D203F22194535007183E9 /* CheckDirectory.swift in Sources */,
