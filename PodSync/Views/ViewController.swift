@@ -45,11 +45,11 @@ class ViewController: NSViewController {
                 queue.async {
 
                     let songs = Utilities.getSong(name: self.selected_playlist)
-                            
+                    
+                    ID3TagReader.audioFiles(songs)
                     
                     
-                    
-                    Synchronize.Sync(songs: songs, destinationFolder: UserDefaults.standard.getLocationURL())
+                    //Synchronize.Sync(songs: songs, destinationFolder: UserDefaults.standard.getLocationURL())
 
                     DispatchQueue.main.async {
                         if Synchronize.getCompleted() == true

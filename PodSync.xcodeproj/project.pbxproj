@@ -12,6 +12,7 @@
 		4448309E22184E0E0045AD79 /* DataRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448309D22184E0E0045AD79 /* DataRadio.swift */; };
 		444830A0221851740045AD79 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448309F221851740045AD79 /* Message.swift */; };
 		445B9192221EC81300915412 /* DirectoryUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445B9191221EC81300915412 /* DirectoryUtilities.swift */; };
+		445B9196221EE1D300915412 /* ID3TagReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445B9195221EE1D300915412 /* ID3TagReader.swift */; };
 		447D203F22194535007183E9 /* CheckDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D203E22194535007183E9 /* CheckDirectory.swift */; };
 		449410F02216E82C00514F14 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449410EF2216E82C00514F14 /* SettingsViewController.swift */; };
 		44DDBB1021F03F2100DA0735 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DDBB0F21F03F2100DA0735 /* AppDelegate.swift */; };
@@ -44,11 +45,25 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		445B919E221EE41D00915412 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		443535AB2211A9FF002E34C4 /* Percent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Percent.swift; sourceTree = "<group>"; };
 		4448309D22184E0E0045AD79 /* DataRadio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRadio.swift; sourceTree = "<group>"; };
 		4448309F221851740045AD79 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		445B9191221EC81300915412 /* DirectoryUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryUtilities.swift; sourceTree = "<group>"; };
+		445B9195221EE1D300915412 /* ID3TagReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ID3TagReader.swift; sourceTree = "<group>"; };
 		447D203E22194535007183E9 /* CheckDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDirectory.swift; sourceTree = "<group>"; };
 		449410EF2216E82C00514F14 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		44DDBB0C21F03F2000DA0735 /* PodSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -173,6 +188,7 @@
 				4448309F221851740045AD79 /* Message.swift */,
 				447D203E22194535007183E9 /* CheckDirectory.swift */,
 				445B9191221EC81300915412 /* DirectoryUtilities.swift */,
+				445B9195221EE1D300915412 /* ID3TagReader.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -203,6 +219,7 @@
 				44DDBB0821F03F2000DA0735 /* Sources */,
 				44DDBB0921F03F2000DA0735 /* Frameworks */,
 				44DDBB0A21F03F2000DA0735 /* Resources */,
+				445B919E221EE41D00915412 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -337,6 +354,7 @@
 				447D203F22194535007183E9 /* CheckDirectory.swift in Sources */,
 				44FBF69B22158C7900E28295 /* AlertBox.swift in Sources */,
 				8D1F337A220D33F600389774 /* MainSyncFunc.swift in Sources */,
+				445B9196221EE1D300915412 /* ID3TagReader.swift in Sources */,
 				8DB09EF121F05A42006B662C /* CustomTableViewCell.swift in Sources */,
 				4448309E22184E0E0045AD79 /* DataRadio.swift in Sources */,
 				444830A0221851740045AD79 /* Message.swift in Sources */,
@@ -506,7 +524,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = J247BFW6KA;
-				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks/iTunesLibrary.framework;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks/iTunesLibrary.framework,
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = PodSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks ${DT_TOOLCHAIN_DIR}/usr/lib/swift/macosx/";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
@@ -525,7 +546,10 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = J247BFW6KA;
-				FRAMEWORK_SEARCH_PATHS = /Library/Frameworks/iTunesLibrary.framework;
+				FRAMEWORK_SEARCH_PATHS = (
+					/Library/Frameworks/iTunesLibrary.framework,
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = PodSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks ${DT_TOOLCHAIN_DIR}/usr/lib/swift/macosx/";
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
