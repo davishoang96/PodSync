@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		440BE9B3221ADF4800EA2AE5 /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB09EEB21F03F8C006B662C /* iTunesLibrary.framework */; };
 		443535AC2211A9FF002E34C4 /* Percent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443535AB2211A9FF002E34C4 /* Percent.swift */; };
 		4448309E22184E0E0045AD79 /* DataRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448309D22184E0E0045AD79 /* DataRadio.swift */; };
 		444830A0221851740045AD79 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448309F221851740045AD79 /* Message.swift */; };
@@ -22,6 +21,7 @@
 		44DDBB2221F03F2100DA0735 /* PodSyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DDBB2121F03F2100DA0735 /* PodSyncTests.swift */; };
 		44DDBB2D21F03F2100DA0735 /* PodSyncUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DDBB2C21F03F2100DA0735 /* PodSyncUITests.swift */; };
 		44FBF69B22158C7900E28295 /* AlertBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBF69A22158C7900E28295 /* AlertBox.swift */; };
+		582EB28C2243666100BBF7BC /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 582EB28B2243666100BBF7BC /* iTunesLibrary.framework */; };
 		8D15680021F094980078483F /* MainLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1567FF21F094980078483F /* MainLib.swift */; };
 		8D1F337A220D33F600389774 /* MainSyncFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1F3379220D33F600389774 /* MainSyncFunc.swift */; };
 		8D33C13621F1624D004F0814 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33C13521F1624C004F0814 /* UserSettings.swift */; };
@@ -79,6 +79,8 @@
 		44DDBB2C21F03F2100DA0735 /* PodSyncUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodSyncUITests.swift; sourceTree = "<group>"; };
 		44DDBB2E21F03F2100DA0735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44FBF69A22158C7900E28295 /* AlertBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBox.swift; sourceTree = "<group>"; };
+		582EB2892243659900BBF7BC /* Caches */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Caches; path = ../../../../../System/Library/Caches; sourceTree = "<group>"; };
+		582EB28B2243666100BBF7BC /* iTunesLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTunesLibrary.framework; path = ../../../../../Library/Frameworks/iTunesLibrary.framework; sourceTree = "<group>"; };
 		8D1567FF21F094980078483F /* MainLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLib.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		8D1F3379220D33F600389774 /* MainSyncFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSyncFunc.swift; sourceTree = "<group>"; };
 		8D33C13521F1624C004F0814 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -92,7 +94,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				440BE9B3221ADF4800EA2AE5 /* iTunesLibrary.framework in Frameworks */,
+				582EB28C2243666100BBF7BC /* iTunesLibrary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +206,8 @@
 		8DB09EEA21F03F8C006B662C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				582EB28B2243666100BBF7BC /* iTunesLibrary.framework */,
+				582EB2892243659900BBF7BC /* Caches */,
 				8DB09EEB21F03F8C006B662C /* iTunesLibrary.framework */,
 			);
 			name = Frameworks;
@@ -527,10 +531,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					/Library/Frameworks/iTunesLibrary.framework,
 					"$(PROJECT_DIR)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = PodSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks ${DT_TOOLCHAIN_DIR}/usr/lib/swift/macosx/";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = EDI.PodSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -549,10 +554,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					/Library/Frameworks/iTunesLibrary.framework,
 					"$(PROJECT_DIR)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = PodSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks ${DT_TOOLCHAIN_DIR}/usr/lib/swift/macosx/";
-				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
 				PRODUCT_BUNDLE_IDENTIFIER = EDI.PodSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
