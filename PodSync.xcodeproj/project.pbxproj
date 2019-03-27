@@ -7,11 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		440BE9B3221ADF4800EA2AE5 /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB09EEB21F03F8C006B662C /* iTunesLibrary.framework */; };
 		443535AC2211A9FF002E34C4 /* Percent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443535AB2211A9FF002E34C4 /* Percent.swift */; };
 		4448309E22184E0E0045AD79 /* DataRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448309D22184E0E0045AD79 /* DataRadio.swift */; };
 		444830A0221851740045AD79 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448309F221851740045AD79 /* Message.swift */; };
 		445B9192221EC81300915412 /* DirectoryUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445B9191221EC81300915412 /* DirectoryUtilities.swift */; };
-		445B9196221EE1D300915412 /* ID3TagReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445B9195221EE1D300915412 /* ID3TagReader.swift */; };
 		447D203F22194535007183E9 /* CheckDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D203E22194535007183E9 /* CheckDirectory.swift */; };
 		449410F02216E82C00514F14 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449410EF2216E82C00514F14 /* SettingsViewController.swift */; };
 		44DDBB1021F03F2100DA0735 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DDBB0F21F03F2100DA0735 /* AppDelegate.swift */; };
@@ -21,7 +21,6 @@
 		44DDBB2221F03F2100DA0735 /* PodSyncTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DDBB2121F03F2100DA0735 /* PodSyncTests.swift */; };
 		44DDBB2D21F03F2100DA0735 /* PodSyncUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DDBB2C21F03F2100DA0735 /* PodSyncUITests.swift */; };
 		44FBF69B22158C7900E28295 /* AlertBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBF69A22158C7900E28295 /* AlertBox.swift */; };
-		582EB28C2243666100BBF7BC /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 582EB28B2243666100BBF7BC /* iTunesLibrary.framework */; };
 		8D15680021F094980078483F /* MainLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1567FF21F094980078483F /* MainLib.swift */; };
 		8D1F337A220D33F600389774 /* MainSyncFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1F3379220D33F600389774 /* MainSyncFunc.swift */; };
 		8D33C13621F1624D004F0814 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33C13521F1624C004F0814 /* UserSettings.swift */; };
@@ -63,7 +62,6 @@
 		4448309D22184E0E0045AD79 /* DataRadio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRadio.swift; sourceTree = "<group>"; };
 		4448309F221851740045AD79 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		445B9191221EC81300915412 /* DirectoryUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryUtilities.swift; sourceTree = "<group>"; };
-		445B9195221EE1D300915412 /* ID3TagReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ID3TagReader.swift; sourceTree = "<group>"; };
 		447D203E22194535007183E9 /* CheckDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDirectory.swift; sourceTree = "<group>"; };
 		449410EF2216E82C00514F14 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		44DDBB0C21F03F2000DA0735 /* PodSync.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PodSync.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,8 +77,6 @@
 		44DDBB2C21F03F2100DA0735 /* PodSyncUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PodSyncUITests.swift; sourceTree = "<group>"; };
 		44DDBB2E21F03F2100DA0735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44FBF69A22158C7900E28295 /* AlertBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBox.swift; sourceTree = "<group>"; };
-		582EB2892243659900BBF7BC /* Caches */ = {isa = PBXFileReference; lastKnownFileType = folder; name = Caches; path = ../../../../../System/Library/Caches; sourceTree = "<group>"; };
-		582EB28B2243666100BBF7BC /* iTunesLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iTunesLibrary.framework; path = ../../../../../Library/Frameworks/iTunesLibrary.framework; sourceTree = "<group>"; };
 		8D1567FF21F094980078483F /* MainLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLib.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		8D1F3379220D33F600389774 /* MainSyncFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSyncFunc.swift; sourceTree = "<group>"; };
 		8D33C13521F1624C004F0814 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -94,7 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				582EB28C2243666100BBF7BC /* iTunesLibrary.framework in Frameworks */,
+				440BE9B3221ADF4800EA2AE5 /* iTunesLibrary.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,7 +186,6 @@
 				4448309F221851740045AD79 /* Message.swift */,
 				447D203E22194535007183E9 /* CheckDirectory.swift */,
 				445B9191221EC81300915412 /* DirectoryUtilities.swift */,
-				445B9195221EE1D300915412 /* ID3TagReader.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -206,8 +201,6 @@
 		8DB09EEA21F03F8C006B662C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				582EB28B2243666100BBF7BC /* iTunesLibrary.framework */,
-				582EB2892243659900BBF7BC /* Caches */,
 				8DB09EEB21F03F8C006B662C /* iTunesLibrary.framework */,
 			);
 			name = Frameworks;
@@ -277,25 +270,26 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 1020;
 				ORGANIZATIONNAME = Viet;
 				TargetAttributes = {
 					44DDBB0B21F03F2000DA0735 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = J247BFW6KA;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 					44DDBB1C21F03F2100DA0735 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = J247BFW6KA;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 44DDBB0B21F03F2000DA0735;
 					};
 					44DDBB2721F03F2100DA0735 = {
 						CreatedOnToolsVersion = 8.3.3;
 						DevelopmentTeam = J247BFW6KA;
-						LastSwiftMigration = 1010;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 						TestTargetID = 44DDBB0B21F03F2000DA0735;
 					};
@@ -303,7 +297,7 @@
 			};
 			buildConfigurationList = 44DDBB0721F03F2000DA0735 /* Build configuration list for PBXProject "PodSync" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
@@ -358,7 +352,6 @@
 				447D203F22194535007183E9 /* CheckDirectory.swift in Sources */,
 				44FBF69B22158C7900E28295 /* AlertBox.swift in Sources */,
 				8D1F337A220D33F600389774 /* MainSyncFunc.swift in Sources */,
-				445B9196221EE1D300915412 /* ID3TagReader.swift in Sources */,
 				8DB09EF121F05A42006B662C /* CustomTableViewCell.swift in Sources */,
 				4448309E22184E0E0045AD79 /* DataRadio.swift in Sources */,
 				444830A0221851740045AD79 /* Message.swift in Sources */,
@@ -416,6 +409,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -474,6 +468,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -531,7 +526,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					/Library/Frameworks/iTunesLibrary.framework,
 					"$(PROJECT_DIR)",
-					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = PodSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks ${DT_TOOLCHAIN_DIR}/usr/lib/swift/macosx/";
@@ -539,7 +533,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = EDI.PodSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -554,7 +548,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					/Library/Frameworks/iTunesLibrary.framework,
 					"$(PROJECT_DIR)",
-					"$(LOCAL_LIBRARY_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = PodSync/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks ${DT_TOOLCHAIN_DIR}/usr/lib/swift/macosx/";
@@ -562,7 +555,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = EDI.PodSync;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -577,8 +570,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = EDI.PodSyncTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PodSync.app/Contents/MacOS/PodSync";
 			};
 			name = Debug;
@@ -594,8 +586,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = EDI.PodSyncTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PodSync.app/Contents/MacOS/PodSync";
 			};
 			name = Release;
@@ -610,8 +601,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = EDI.PodSyncUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = PodSync;
 			};
 			name = Debug;
@@ -626,8 +616,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = EDI.PodSyncUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_SWIFT3_OBJC_INFERENCE = On;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_TARGET_NAME = PodSync;
 			};
 			name = Release;

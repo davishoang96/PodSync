@@ -15,6 +15,8 @@ class SettingsViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    
+        
         if alwaysOnTop == true
         {
             CheckAlwaysOnTop.state = .on
@@ -25,17 +27,11 @@ class SettingsViewController: NSViewController {
         }
         
         self.PathControl.url = UserDefaults.standard.getLocationURL().absoluteURL
-        
-        self.view.window?.title = "Settings"
-        self.view.window?.level = .floating
+        self.view.window?.title = "Preferences"
     }
     
  
-    
-    // Update setting value from here
-    override func viewDidDisappear() {
-        
-        
+    override func viewWillDisappear() {
         myDataRadio.DataRadio("UpdateWindowLevel")
     }
     
@@ -81,21 +77,15 @@ class SettingsViewController: NSViewController {
     @IBAction func onCheckAlwaysOnTop(_ sender: NSButton) {
         if CheckAlwaysOnTop.state == .on
         {
-            
             UserDefaults.standard.setAlwaysOnTop(value: true)
             print("CheckAlwaysOnTop:",true)
         }
         else
         {
-            
             UserDefaults.standard.setAlwaysOnTop(value: false)
             print("CheckAlwaysOnTop:",false)
         }
     }
     
-    
-    
-    @IBAction func onClickClose(_ sender: NSButton) {
-        
-    }
+
 }

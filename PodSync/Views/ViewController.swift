@@ -46,6 +46,9 @@ class ViewController: NSViewController {
 
                     let songs = Utilities.getSong(name: self.selected_playlist)
                     
+                    
+                    
+                    
                     Synchronize.Sync(songs: songs, destinationFolder: UserDefaults.standard.getLocationURL())
 
                     DispatchQueue.main.async {
@@ -75,8 +78,6 @@ class ViewController: NSViewController {
     
     //MARK: - Reload itunes library after the application has been focus
     @objc func applicationDidBecomeActive(_ notification: Notification) {
-        
-        
         Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(self.ReloadLibrary), userInfo: nil, repeats: false)
     }
     
@@ -92,15 +93,15 @@ class ViewController: NSViewController {
         print(thisPlaylist.playlist)
         
         print("LIBRARY RELOADED")
-        
     }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
  
         // 1. Load saved sync folder location
         let lastDirectory = UserDefaults.standard.getLocationURL()
-        tableView.sizeLastColumnToFit()
         
         if !FileManager.default.fileExists(atPath: lastDirectory.path)
         {
@@ -112,7 +113,11 @@ class ViewController: NSViewController {
 
         // Reload library after users' modification from iTunes
         // Library will reload after users focus on PodSync's window
-        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: NSApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applicationDidBecomeActive),
+            name: NSApplication.didBecomeActiveNotification,
+            object: nil)
         
         // Sync percents notification center
         NotificationCenter.default.addObserver(self, selector: #selector(ProcessInfo), name: NSNotification.Name("NotificationPercent"), object: nil)
@@ -123,8 +128,6 @@ class ViewController: NSViewController {
         
     }
     
-    
-    // floating or normal level for view
     @objc func UpdateWindowLevel(notification: Notification)
     {
         if UserDefaults.standard.getAlwaysOnTop() == true
@@ -135,9 +138,7 @@ class ViewController: NSViewController {
         {
             self.view.window?.level = .normal
         }
-        
         self.viewDidLoad()
-        print("ViewdidLoad Called")
     }
     
     @objc func StopSync(notification: Notification)
