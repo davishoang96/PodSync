@@ -199,6 +199,8 @@ class Synchronize
         isRunning = false
         isCompleted = true
         myDataRadio.DataRadio("StopSync")
+        
+        alertBox.showNotification("Alert", "Finish syncing " + String(num_copiedSongs) + " songs")
     }
     
     

@@ -21,6 +21,15 @@ class alertBox
         return alert.runModal() == .alertFirstButtonReturn
     }
     
-    
+    static func showNotification(_ title: String, _ info: String) -> Void {
+        
+        let notification = NSUserNotification()
+        
+        notification.title = title
+        notification.informativeText = info
+        notification.soundName = NSUserNotificationDefaultSoundName
+        NSUserNotificationCenter.default.deliver(notification)
+        
+    }
     
 }

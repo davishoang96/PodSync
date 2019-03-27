@@ -20,6 +20,8 @@ class ViewController: NSViewController {
     
     var thisPlaylist = TablePlaylist.init(playlist: Utilities.getPlaylist())
 
+ 
+    
     @IBOutlet weak var tableView: NSTableView!
     @IBAction func onClickSync(_ sender: NSButton) {
         
@@ -46,16 +48,12 @@ class ViewController: NSViewController {
 
                     let songs = Utilities.getSong(name: self.selected_playlist)
                     
-                    
-                    
-                    
                     Synchronize.Sync(songs: songs, destinationFolder: UserDefaults.standard.getLocationURL())
 
                     DispatchQueue.main.async {
                         if Synchronize.getCompleted() == true
                         {
                             alertBox.dialogOKCancel(question: "Alert", text: "Sync completed")
-                            
                         }
                     }
                 }
@@ -71,10 +69,6 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var ProgressBar: NSProgressIndicator!
     @IBOutlet weak var SyncBtn: NSButton!
-    
-    @IBAction func onClickSetting(_ sender: NSButton) {
-       
-    }
     
     //MARK: - Reload itunes library after the application has been focus
     @objc func applicationDidBecomeActive(_ notification: Notification) {
@@ -94,14 +88,14 @@ class ViewController: NSViewController {
         
         print("LIBRARY RELOADED")
     }
-    
-    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
  
         // 1. Load saved sync folder location
         let lastDirectory = UserDefaults.standard.getLocationURL()
+        
         
         if !FileManager.default.fileExists(atPath: lastDirectory.path)
         {
@@ -111,6 +105,11 @@ class ViewController: NSViewController {
 
         }
 
+        
+        // 2. UI Setup
+        self.tableView.sizeLastColumnToFit()
+        
+        
         // Reload library after users' modification from iTunes
         // Library will reload after users focus on PodSync's window
         NotificationCenter.default.addObserver(

@@ -15,7 +15,9 @@ class SettingsViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-    
+        // UI Setup
+        preferredContentSize = view.frame.size
+        PathControl.url = UserDefaults.standard.getLocationURL().absoluteURL
         
         if alwaysOnTop == true
         {
@@ -26,14 +28,11 @@ class SettingsViewController: NSViewController {
             CheckAlwaysOnTop.state = .off
         }
         
-        self.PathControl.url = UserDefaults.standard.getLocationURL().absoluteURL
-        self.view.window?.title = "Preferences"
+       
+        
+        
     }
-    
- 
-    override func viewWillDisappear() {
-        myDataRadio.DataRadio("UpdateWindowLevel")
-    }
+
     
     @IBOutlet weak var PathControl: NSPathControl!
     @IBAction func onClickPathControl(_ sender: NSPathControl) {
@@ -78,11 +77,13 @@ class SettingsViewController: NSViewController {
         if CheckAlwaysOnTop.state == .on
         {
             UserDefaults.standard.setAlwaysOnTop(value: true)
+            myDataRadio.DataRadio("UpdateWindowLevel")
             print("CheckAlwaysOnTop:",true)
         }
         else
         {
             UserDefaults.standard.setAlwaysOnTop(value: false)
+            myDataRadio.DataRadio("UpdateWindowLevel")
             print("CheckAlwaysOnTop:",false)
         }
     }

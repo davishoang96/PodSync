@@ -725,7 +725,7 @@
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <button identifier="CheckColumn" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="W0C-sJ-e32">
-                                                                    <rect key="frame" x="1" y="-2" width="114" height="18"/>
+                                                                    <rect key="frame" x="1" y="-2" width="613" height="18"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <buttonCell key="cell" type="check" title="Check" bezelStyle="regularSquare" imagePosition="left" inset="2" id="qVi-xc-CQi">
                                                                         <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
@@ -768,7 +768,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </progressIndicator>
                             <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Guc-2j-aZF">
-                                <rect key="frame" x="14" y="13" width="234" height="32"/>
+                                <rect key="frame" x="14" y="13" width="262" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <buttonCell key="cell" type="push" title="Sync" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="KC6-yf-d8t">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -779,18 +779,6 @@ DQ
                                 </buttonCell>
                                 <connections>
                                     <action selector="onClickSync:" target="XfG-lQ-9wD" id="Qry-e7-B3X"/>
-                                </connections>
-                            </button>
-                            <button fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kCU-tF-dT7">
-                                <rect key="frame" x="250" y="20" width="20" height="20"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" image="NSAdvanced" imagePosition="only" alignment="center" imageScaling="proportionallyUpOrDown" inset="2" id="a3b-D7-xjI">
-                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
-                                    <font key="font" metaFont="system"/>
-                                </buttonCell>
-                                <connections>
-                                    <action selector="onClickSetting:" target="XfG-lQ-9wD" id="qfL-KM-Qe9"/>
-                                    <segue destination="W9O-QK-ZKy" kind="sheet" id="XvB-I2-OHF"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -805,11 +793,11 @@ DQ
             </objects>
             <point key="canvasLocation" x="-742" y="745"/>
         </scene>
-        <!--Settings View Controller-->
+        <!--Preferences-->
         <scene sceneID="1YP-an-2zq">
             <objects>
-                <viewController storyboardIdentifier="SettingVC" id="W9O-QK-ZKy" customClass="SettingsViewController" customModule="PodSync" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" id="kA8-dY-5T2">
+                <viewController title="Preferences" storyboardIdentifier="SettingVC" showSeguePresentationStyle="single" id="W9O-QK-ZKy" customClass="SettingsViewController" customModule="PodSync" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" autoresizesSubviews="NO" wantsLayer="YES" id="kA8-dY-5T2">
                         <rect key="frame" x="0.0" y="0.0" width="451" height="266"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -853,7 +841,7 @@ DQ
                                                     </textFieldCell>
                                                 </textField>
                                                 <pathControl verticalHuggingPriority="750" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="AsP-Kj-wd6">
-                                                    <rect key="frame" x="17" y="17" width="204" height="22"/>
+                                                    <rect key="frame" x="17" y="17" width="371" height="22"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                     <pathCell key="cell" selectable="YES" editable="YES" alignment="left" id="nj0-7q-KeF">
                                                         <font key="font" metaFont="system"/>
@@ -910,10 +898,4 @@ DQ
             <point key="canvasLocation" x="-14.5" y="339"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="NSAdvanced" width="32" height="32"/>
-    </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="ezF-dp-u4x"/>
-    </inferredMetricsTieBreakers>
 </document>
