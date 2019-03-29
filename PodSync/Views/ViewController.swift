@@ -20,8 +20,6 @@ class ViewController: NSViewController {
     
     var thisPlaylist = TablePlaylist.init(playlist: Utilities.getPlaylist())
 
- 
-    
     @IBOutlet weak var tableView: NSTableView!
     @IBAction func onClickSync(_ sender: NSButton) {
         
@@ -70,24 +68,6 @@ class ViewController: NSViewController {
     @IBOutlet weak var ProgressBar: NSProgressIndicator!
     @IBOutlet weak var SyncBtn: NSButton!
     
-    //MARK: - Reload itunes library after the application has been focus
-    @objc func applicationDidBecomeActive(_ notification: Notification) {
-        Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(self.ReloadLibrary), userInfo: nil, repeats: false)
-    }
-    
-    //MARK: - Reload library
-    @objc func ReloadLibrary()
-    {
-        // 1. Get playlist
-        thisPlaylist.playlist = Utilities.getPlaylist()
-        
-        // 2. Reload the table
-        tableView.reloadData()
-        
-        print(thisPlaylist.playlist)
-        
-        print("LIBRARY RELOADED")
-    }
 
     
     override func viewDidLoad() {
@@ -112,22 +92,24 @@ class ViewController: NSViewController {
         
         // Reload library after users' modification from iTunes
         // Library will reload after users focus on PodSync's window
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(applicationDidBecomeActive),
-            name: NSApplication.didBecomeActiveNotification,
-            object: nil)
+        
         
         // Sync percents notification center
+
+        
+    }
+    
+    func Observer()
+    {
+        NotificationCenter.default.addObserver(self, selector: #selector(applicationDidBecomeActive), name: NSApplication.didBecomeActiveNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(ProcessInfo), name: NSNotification.Name("NotificationPercent"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(RemainedPercent), name: NSNotification.Name("NotificationRemained"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(SyncLocation), name: NSNotification.Name("NotificationLocation"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(StopSync), name: NSNotification.Name("StopSync"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(UpdateWindowLevel), name: NSNotification.Name("UpdateWindowLevel"), object: nil)
-        
     }
     
-    @objc func UpdateWindowLevel(notification: Notification)
+    func setWindowLevel()
     {
         if UserDefaults.standard.getAlwaysOnTop() == true
         {
@@ -138,6 +120,38 @@ class ViewController: NSViewController {
             self.view.window?.level = .normal
         }
         self.viewDidLoad()
+    }
+    
+    //MARK: - Update view window level at first launch
+    override func viewDidAppear()
+    {
+        setWindowLevel()
+        Observer()
+    }
+    
+    //MARK: - Reload itunes library after the application has been focus
+    @objc func applicationDidBecomeActive(_ notification: Notification) {
+        Timer.scheduledTimer(timeInterval: 0.4, target: self, selector: #selector(self.ReloadLibrary), userInfo: nil, repeats: false)
+    }
+    
+    //MARK: - Reload library
+    @objc func ReloadLibrary()
+    {
+        // 1. Get playlist
+        thisPlaylist.playlist = Utilities.getPlaylist()
+        
+        // 2. Reload the table
+        tableView.reloadData()
+        
+        print(thisPlaylist.playlist)
+        
+        print("LIBRARY RELOADED")
+    }
+
+    
+    @objc func UpdateWindowLevel(notification: Notification)
+    {
+        setWindowLevel()
     }
     
     @objc func StopSync(notification: Notification)
@@ -173,7 +187,7 @@ class ViewController: NSViewController {
         DispatchQueue.main.async {
             self.ProgressBar.increment(by: percent)
         }
-        
+        print(percent)
     }
     
 
