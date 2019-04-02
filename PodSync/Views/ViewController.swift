@@ -47,6 +47,11 @@ class ViewController: NSViewController {
 
                     let songs = Utilities.getSong(name: self.selected_playlist)
                     
+                    if let item = DirectoryUtilities.Get_FolderItemURL(UserDefaults.standard.getLocationURL())
+                    {
+                        Synchronize.removeOldFiles(songs: songs, files: item)
+                    }
+                    
                     Synchronize.Sync(songs: songs, destinationFolder: UserDefaults.standard.getLocationURL())
 
                     DispatchQueue.main.async {
@@ -84,7 +89,11 @@ class ViewController: NSViewController {
         
         // 2. UI Setup
         self.tableView.sizeLastColumnToFit()
-        print(Date())
+        
+        
+        // TEST
+
+        
     }
     
     func Observer()
@@ -182,7 +191,7 @@ class ViewController: NSViewController {
         DispatchQueue.main.async {
             self.ProgressBar.increment(by: percent)
         }
-        print(percent)
+        //print(percent)
     }
     
 

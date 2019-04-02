@@ -10,7 +10,6 @@
 		440BE9B3221ADF4800EA2AE5 /* iTunesLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DB09EEB21F03F8C006B662C /* iTunesLibrary.framework */; };
 		443535AC2211A9FF002E34C4 /* Percent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 443535AB2211A9FF002E34C4 /* Percent.swift */; };
 		4448309E22184E0E0045AD79 /* DataRadio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448309D22184E0E0045AD79 /* DataRadio.swift */; };
-		444830A0221851740045AD79 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4448309F221851740045AD79 /* Message.swift */; };
 		445B9192221EC81300915412 /* DirectoryUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 445B9191221EC81300915412 /* DirectoryUtilities.swift */; };
 		447D203F22194535007183E9 /* CheckDirectory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447D203E22194535007183E9 /* CheckDirectory.swift */; };
 		449410F02216E82C00514F14 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 449410EF2216E82C00514F14 /* SettingsViewController.swift */; };
@@ -60,7 +59,6 @@
 /* Begin PBXFileReference section */
 		443535AB2211A9FF002E34C4 /* Percent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Percent.swift; sourceTree = "<group>"; };
 		4448309D22184E0E0045AD79 /* DataRadio.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataRadio.swift; sourceTree = "<group>"; };
-		4448309F221851740045AD79 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		445B9191221EC81300915412 /* DirectoryUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryUtilities.swift; sourceTree = "<group>"; };
 		447D203E22194535007183E9 /* CheckDirectory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckDirectory.swift; sourceTree = "<group>"; };
 		449410EF2216E82C00514F14 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -183,7 +181,6 @@
 				8D1F3379220D33F600389774 /* MainSyncFunc.swift */,
 				443535AB2211A9FF002E34C4 /* Percent.swift */,
 				4448309D22184E0E0045AD79 /* DataRadio.swift */,
-				4448309F221851740045AD79 /* Message.swift */,
 				447D203E22194535007183E9 /* CheckDirectory.swift */,
 				445B9191221EC81300915412 /* DirectoryUtilities.swift */,
 			);
@@ -354,7 +351,6 @@
 				8D1F337A220D33F600389774 /* MainSyncFunc.swift in Sources */,
 				8DB09EF121F05A42006B662C /* CustomTableViewCell.swift in Sources */,
 				4448309E22184E0E0045AD79 /* DataRadio.swift in Sources */,
-				444830A0221851740045AD79 /* Message.swift in Sources */,
 				44DDBB1221F03F2100DA0735 /* ViewController.swift in Sources */,
 				8D33C13621F1624D004F0814 /* UserSettings.swift in Sources */,
 				44DDBB1021F03F2100DA0735 /* AppDelegate.swift in Sources */,

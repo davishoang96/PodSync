@@ -67,13 +67,16 @@ class DirectoryUtilities
         {
             for eachAF in artistFolder
             {
-                if !artists.contains(eachAF) && eachAF != DestinationFolder && !artists.contains("Various Artists")
+                if !artists.contains(eachAF) && eachAF != DestinationFolder || !artists.contains("Various Artists")
                 {
                     let removePath = SyncPath + "/" + eachAF
                     
                     let removePathURL = URL(fileURLWithPath: removePath)
                     
+                    print(removePath)
+                    
                     try fileManager.trashItem(at: removePathURL, resultingItemURL: nil)
+                    
                 }
             }
         }

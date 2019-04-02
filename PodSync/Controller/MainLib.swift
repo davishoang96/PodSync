@@ -196,24 +196,50 @@ class Utilities{
         return result
     }
     
-    
-    static func get_SongMDateLib(_ songs: [ITLibMediaItem]) -> [Date]
+    static func currentDateTime(date: Date) -> String!
     {
-        var date = [Date]()
+        let dateFormatter = DateFormatter()
         
-        for eachsong in songs
-        {
-            if let modifiedDate = eachsong.modifiedDate
-            {
-                date.append(modifiedDate)
-            }
-        }
-        return date
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ssZ"
+        
+        let result = dateFormatter.string(from: date)
+        
+        return result
     }
     
-    static func get_SongMDateFolder(items: [URL]) -> [Date]?
+    static func get_SongMDateLib(_ songs: [ITLibMediaItem]) -> [String]
     {
-        var date = [Date]()
+        var date = [String]()
+        do{
+            for eachsong in songs
+            {
+                
+                if let filePath = eachsong.location?.path
+                {
+                    var itemDate = try fileManager.attributesOfItem(atPath: filePath)
+                    if let fileDate = itemDate[FileAttributeKey.modificationDate]
+                    {
+                        let d = Utilities.currentDateTime(date: fileDate as! Date)
+                        date.append(d!)
+                    }
+                }
+            }
+            print("Total:",date.count)
+            return date
+        }
+        catch
+        {
+            print(error.localizedDescription)
+            return ["Cannot get song's modification date."]
+        }
+    }
+        
+
+    
+    
+    static func get_SongMDateFolder(items: [URL]) -> [String]?
+    {
+        var date = [String]()
         
         do
         {
@@ -223,7 +249,8 @@ class Utilities{
                 
                 if let fileDate = itemDate[FileAttributeKey.modificationDate]
                 {
-                    date.append(fileDate as! Date)
+                    let d = currentDateTime(date: fileDate as! Date)
+                    date.append(d!)
                 }
                 
             }
@@ -235,6 +262,8 @@ class Utilities{
             return nil
         }
     }
+    
+    
     
     
     static func getAlbumName(_ songs: [ITLibMediaItem]) -> [String]

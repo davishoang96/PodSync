@@ -65,13 +65,20 @@ class Synchronize
                 {
                     let itemMB = try FileManager.default.attributesOfItem(atPath: eachfile.path)
                     let fileDate = itemMB[FileAttributeKey.modificationDate] as! Date
-                    if !originalFiles.contains(fileDate)
+                    
+                    if let fixDate = Utilities.currentDateTime(date: fileDate)
                     {
-                        //print("ModifiedDate:",fileDate ,eachfile.lastPathComponent)
-                        //try FileManager.default.trashItem(at: eachfile, resultingItemURL: nil)
+                        if !originalFiles.contains(fixDate)
+                        {
+                            print("NOT MATCHED:",fixDate, eachfile.lastPathComponent)
+                            try FileManager.default.trashItem(at: eachfile, resultingItemURL: nil)
+                        }
                     }
+                    
                 }
+                
             }
+            print(originalFiles)
         }
         catch
         {
@@ -95,6 +102,7 @@ class Synchronize
             var songfilename: String
             var myPath:String
             
+            num_copiedSongs = 0
             
             // 1. Get file URLs in Synced folder
             if let item = DirectoryUtilities.Get_FolderItemURL(destinationFolder)
@@ -130,7 +138,7 @@ class Synchronize
             //var a = Utilities.get_SongMDateLib(songs)
             //var b = Utilities.get_SongMDateFolder(items: folderItemsURL)
             
-            removeOldFiles(songs: songs, files: folderItemsURL)
+         
             
             // Get num of existed songs to calculate percent of sync
             num_existedSongs = Utilities.get_numOf_ExistedSongs(itemURL: folderItemsURL, songName: songName)
@@ -142,6 +150,7 @@ class Synchronize
 
             // ------------------------------
             
+            print("Begin Syncing")
             
             // 5. SYNC
             do
@@ -169,7 +178,7 @@ class Synchronize
                                 else if eachsong.album.albumArtist == "Various" || eachsong.album.albumArtist == "Various Artists" || eachsong.album.albumArtist == "Various Artist"
                                 {
                                     myPath = folderLocation + "Various Artists"  + "/" + eachsong.album.title! + "/" + song
-                                    
+                                    print(myPath)
                                 }
                                 else if eachsong.album.albumArtist?.count == nil && eachsong.album.albumArtist != eachsong.artist?.name
                                 {
@@ -190,7 +199,7 @@ class Synchronize
                                 myDataRadio.DataRadio("NotificationPercent")
                                 
                                 num_copiedSongs+=1
-                                print(num_copiedSongs)
+                                //print(num_copiedSongs)
                             }
                         }
                     }
