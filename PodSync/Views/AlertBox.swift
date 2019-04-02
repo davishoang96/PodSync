@@ -11,13 +11,16 @@ import Cocoa
 
 class alertBox
 {
-    static func dialogOKCancel(question: String, text: String) -> Bool {
+    static func dialogOKCancel(question: String, text: String, button: Int) -> Bool {
         let alert = NSAlert()
         alert.messageText = question
         alert.informativeText = text
         alert.alertStyle = .warning
         alert.addButton(withTitle: "OK")
-        alert.addButton(withTitle: "Cancel")
+        if button == 1{
+           alert.addButton(withTitle: "Cancel")
+        }
+        
         return alert.runModal() == .alertFirstButtonReturn
     }
     

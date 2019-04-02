@@ -54,7 +54,30 @@ class Synchronize
         return num_existedSongs
     }
 
-    
+    static func removeOldFiles(songs: [ITLibMediaItem], files: [URL])
+    {
+        do
+        {
+            let originalFiles = Utilities.get_SongMDateLib(songs)
+            for eachfile in files
+            {
+                if !eachfile.isDirectory
+                {
+                    let itemMB = try FileManager.default.attributesOfItem(atPath: eachfile.path)
+                    let fileDate = itemMB[FileAttributeKey.modificationDate] as! Date
+                    if !originalFiles.contains(fileDate)
+                    {
+                        //print("ModifiedDate:",fileDate ,eachfile.lastPathComponent)
+                        //try FileManager.default.trashItem(at: eachfile, resultingItemURL: nil)
+                    }
+                }
+            }
+        }
+        catch
+        {
+            print(error.localizedDescription)
+        }
+    }
     
     static func Sync(songs: [ITLibMediaItem], destinationFolder: URL)
     {
@@ -102,24 +125,21 @@ class Synchronize
             DirectoryUtilities.createDirectory(songPath)
             
             
+            // 5. Remove songs if modified date not matched
+            
+            //var a = Utilities.get_SongMDateLib(songs)
+            //var b = Utilities.get_SongMDateFolder(items: folderItemsURL)
+            
+            removeOldFiles(songs: songs, files: folderItemsURL)
             
             // Get num of existed songs to calculate percent of sync
             num_existedSongs = Utilities.get_numOf_ExistedSongs(itemURL: folderItemsURL, songName: songName)
-            
-            print("RemainedPercent:",SyncPercent.remainedPercent())
-            print("PercentEachFile:",SyncPercent.calpercent())
+            SyncPercent.remainedPercent()
+            SyncPercent.calpercent()
 
             
             myDataRadio.DataRadio("NotificationRemained")
-            
-            
-            // BETA TEST
-            
-            var a = Utilities.get_SongMDateLib(songs)
-            var b = Utilities.get_SongMDateFolder(items: folderItemsURL)
-            
-            
-            
+
             // ------------------------------
             
             
@@ -136,9 +156,6 @@ class Synchronize
                         
                         var folderLocation = destinationFolder.path + "/"
 
-                        
-                        
-                        
                         if let song = eachsong.location?.lastPathComponent
                         {
                             if !folderItemsName.contains(song)

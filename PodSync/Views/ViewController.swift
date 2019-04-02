@@ -22,6 +22,7 @@ class ViewController: NSViewController {
 
     @IBOutlet weak var tableView: NSTableView!
     @IBAction func onClickSync(_ sender: NSButton) {
+
         
         if Synchronize.getstop() == true
         {
@@ -31,7 +32,7 @@ class ViewController: NSViewController {
         }
         else
         {
-            let command = alertBox.dialogOKCancel(question: "Sync", text: "Sync now?")
+            let command = alertBox.dialogOKCancel(question: "Sync", text: "Sync now?", button: 1)
             if command == true && !selected_playlist.isEmpty
             {
                 print("ISRUNNING")
@@ -51,15 +52,14 @@ class ViewController: NSViewController {
                     DispatchQueue.main.async {
                         if Synchronize.getCompleted() == true
                         {
-                            alertBox.dialogOKCancel(question: "Alert", text: "Sync completed")
+                            alertBox.dialogOKCancel(question: "Alert", text: "Sync completed", button: 0)
                         }
                     }
                 }
             }
-            else
+            else if command == true && selected_playlist.isEmpty
             {
-                print("Can't Sync!!! No playlists were selected")
-                alertBox.dialogOKCancel(question: "Alert", text: "Can't Sync!!! No playlists were selected")
+                alertBox.dialogOKCancel(question: "Alert", text: "Can't Sync!!! No playlists were selected", button: 0)
             }
         }
     }
@@ -72,31 +72,19 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
-        // 1. Load saved sync folder location
+        
         let lastDirectory = UserDefaults.standard.getLocationURL()
-        
-        
         if !FileManager.default.fileExists(atPath: lastDirectory.path)
         {
+            
             let removeURL = UserDefaults.standard
             removeURL.removeObject(forKey: "destinationURL")
-            alertBox.dialogOKCancel(question: "Alert", text: "Cannot found the previous sync folder. Please choose other folder to sync.")
-
+            alertBox.dialogOKCancel(question: "Alert", text: "Cannot found the previous sync folder. Please choose other folder to sync.", button: 0)
         }
-
         
         // 2. UI Setup
         self.tableView.sizeLastColumnToFit()
-        
-        
-        // Reload library after users' modification from iTunes
-        // Library will reload after users focus on PodSync's window
-        
-        
-        // Sync percents notification center
-
-        
+        print(Date())
     }
     
     func Observer()
@@ -108,6 +96,8 @@ class ViewController: NSViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(StopSync), name: NSNotification.Name("StopSync"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(UpdateWindowLevel), name: NSNotification.Name("UpdateWindowLevel"), object: nil)
     }
+    
+
     
     func setWindowLevel()
     {
@@ -126,8 +116,13 @@ class ViewController: NSViewController {
     override func viewDidAppear()
     {
         setWindowLevel()
+    }
+    
+    //MARK: - Intial NotificationCenters
+    override func viewDidLayout() {
         Observer()
     }
+    
     
     //MARK: - Reload itunes library after the application has been focus
     @objc func applicationDidBecomeActive(_ notification: Notification) {
@@ -143,9 +138,9 @@ class ViewController: NSViewController {
         // 2. Reload the table
         tableView.reloadData()
         
-        print(thisPlaylist.playlist)
+        //print(thisPlaylist.playlist)
         
-        print("LIBRARY RELOADED")
+        //print("LIBRARY RELOADED")
     }
 
     
