@@ -46,13 +46,17 @@ class ViewController: NSViewController {
                 queue.async {
 
                     let songs = Utilities.getSong(name: self.selected_playlist)
+
                     
+
                     if let item = DirectoryUtilities.Get_FolderItemURL(UserDefaults.standard.getLocationURL())
                     {
                         Synchronize.removeOldFiles(songs: songs, files: item)
                     }
-                    
+
+                    DirectoryUtilities.removeEmptyFolder(UserDefaults.standard.getLocationURL())
                     Synchronize.Sync(songs: songs, destinationFolder: UserDefaults.standard.getLocationURL())
+
 
                     DispatchQueue.main.async {
                         if Synchronize.getCompleted() == true
@@ -60,6 +64,9 @@ class ViewController: NSViewController {
                             alertBox.dialogOKCancel(question: "Alert", text: "Sync completed", button: 0)
                         }
                     }
+                    
+                    
+                    
                 }
             }
             else if command == true && selected_playlist.isEmpty

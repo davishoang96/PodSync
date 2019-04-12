@@ -57,34 +57,70 @@ class DirectoryUtilities
         return subDirectory
     }
     
-    static func removeEmptyDirectory(_ directories: [URL], _ artists: [String])
+    
+    static func getFile(_ destination: URL) -> [URL]?
     {
-        let artistFolder = removeDuplicatedDirectories(directories)
-        let SyncPath = UserDefaults.standard.getLocationURL().path
-        let DestinationFolder = UserDefaults.standard.getLocationURL().lastPathComponent
-                
+        var items = [URL]()
+        if let content = Get_FolderItemURL(destination)
+        {
+            for item in content
+            {
+                if item.isFileKey
+                {
+                    items.append(item)
+                }
+            }
+            return items
+        }
+        else
+        {
+            return nil
+        }
+    }
+    
+    static func getDirectory(_ destination: URL) -> [URL]?
+    {
+        var items = [URL]()
+        if let content = Get_FolderItemURL(destination)
+        {
+            for item in content
+            {
+                if !item.isFileKey
+                {
+                    items.append(item)
+                }
+            }
+            return items
+        }
+        else
+        {
+            return nil
+        }
+    }
+    
+    static func removeEmptyFolder(_ destination: URL)
+    {
         do
         {
-            for eachAF in artistFolder
+            if let directories = getDirectory(destination)
             {
-                if !artists.contains(eachAF) && eachAF != DestinationFolder || !artists.contains("Various Artists")
+                for directory in directories
                 {
-                    let removePath = SyncPath + "/" + eachAF
                     
-                    let removePathURL = URL(fileURLWithPath: removePath)
-                    
-                    print(removePath)
-                    
-                    try fileManager.trashItem(at: removePathURL, resultingItemURL: nil)
-                    
+                    while getFile(directory)?.count == 0 && getDirectory(directory)?.count == 0
+                    {
+                        try fileManager.trashItem(at: directory, resultingItemURL: nil)
+                    }
                 }
+                
             }
         }
         catch
         {
-            print(error.localizedDescription)
+            removeEmptyFolder(destination)
         }
     }
+    
     
     static func removeDuplicatedDirectories(_ directories: [URL]) -> [String]
     {
@@ -129,59 +165,156 @@ class DirectoryUtilities
         
     }
     
+    
     static func createSongPath(_ songs: [ITLibMediaItem]) -> [String]
     {
         var result = [String]()
         
         let SyncLocation = UserDefaults.standard.getLocationURL().path
         
+        var newAlbumTitle: String
+        var newAlbumArtist: String
+        var newArtistName: String
+        
         for eachsong in songs
         {
-            
-            if eachsong.album.albumArtist?.count != nil && eachsong.album.albumArtist == eachsong.artist?.name
+            let albumTitle = eachsong.album.title
+            if albumTitle == nil
             {
-                let path  = SyncLocation + "/" + eachsong.album.albumArtist! + "/" + eachsong.album.title!
+                newAlbumTitle = "Unknown Album"
+            }
+            else
+            {
+                newAlbumTitle = StringHelper.process(albumTitle!)
+            }
+            
+            let artistName = eachsong.artist?.name
+            if artistName == nil
+            {
+                newArtistName = "Unknown Artist"
+            }
+            else
+            {
+                newArtistName = StringHelper.process(artistName!)
+            }
+            
+            let albumArtist = eachsong.album.albumArtist
+            if albumArtist == nil
+            {
+                newAlbumArtist = "Unknown Artist"
+            }
+            else
+            {
+                newAlbumArtist = StringHelper.process(albumArtist!)
+            }
+            
+            
+            if eachsong.album.albumArtist?.count != nil && newAlbumArtist == newArtistName
+            {
+                let path  = SyncLocation + "/" + newAlbumArtist + "/" + newAlbumTitle
                 
                 if !result.contains(path)
                 {
-                    //print(path)
+                    print(path)
                     result.append(path)
                 }
                 
             }
-            else if eachsong.album.albumArtist == "Various" || eachsong.album.albumArtist == "Various Artists" || eachsong.album.albumArtist == "Various Artist"
+            else if eachsong.album.albumArtist?.count != nil && newAlbumArtist != newArtistName
             {
-                let path  = SyncLocation + "/" + "Various Artists"  + "/" + eachsong.album.title!
+                
+                
+                let path  = SyncLocation + "/" + newAlbumArtist + "/" + newAlbumTitle
                 
                 if !result.contains(path)
                 {
-                    //print(path)
+                    print(path)
+                    result.append(path)
+                }
+                
+            }
+            else if eachsong.album.albumArtist?.count == nil && newAlbumArtist == newArtistName
+            {
+                let path  = SyncLocation + "/" + newAlbumArtist + "/" + newAlbumTitle
+                
+                if !result.contains(path)
+                {
+                    print(path)
+                    result.append(path)
+                }
+                
+            }
+            else if eachsong.album.albumArtist == "Various" || eachsong.album.albumArtist == "Various Artists" || eachsong.album.albumArtist == "Various Artist" && eachsong.artist?.name != nil
+            {
+                let path  = SyncLocation + "/" + newAlbumArtist  + "/" + newAlbumTitle
+                
+                if !result.contains(path)
+                {
+                    print(path)
                     result.append(path)
                 }
             }
             else if eachsong.album.albumArtist?.count == nil && eachsong.album.albumArtist != eachsong.artist?.name
             {
-                let path  = SyncLocation + "/" + (eachsong.artist?.name)! + "/" + eachsong.album.title!
+                let path  = SyncLocation + "/" + newArtistName + "/" + newAlbumTitle
                 
                 if !result.contains(path)
                 {
-                    //print("->",path)
+                    print("->",path)
                     result.append(path)
                 }
-                
             }
+            else if eachsong.album.albumArtist?.count != nil && eachsong.album.albumArtist != eachsong.artist?.name && eachsong.album.albumArtist == "Various" || eachsong.album.albumArtist == "Various Artists" || eachsong.album.albumArtist == "Various Artist"
+            {
+                let path  = SyncLocation + "/" + newAlbumArtist + "/" + newAlbumTitle
+                
+                if !result.contains(path)
+                {
+                    print("-o>",path)
+                    result.append(path)
+                }
+            }
+            else if eachsong.artist?.name == nil && eachsong.album.albumArtist?.count != nil
+            {
+                let path  = SyncLocation + "/" + newAlbumArtist + "/" + newAlbumTitle
+                
+                if !result.contains(path)
+                {
+                    print("->",path)
+                    result.append(path)
+                }
+            }
+            else if eachsong.album.albumArtist?.count == nil || eachsong.artist?.name == nil 
+            {
+                let path: String
+                
+                if eachsong.album.title != nil
+                {
+                   path  = SyncLocation + "/" + newAlbumArtist + "/" + newAlbumTitle
+                }
+                else
+                {
+                   path  = SyncLocation + "/" + newAlbumArtist + "/" + newAlbumTitle
+                }
+                
+                if !result.contains(path)
+                {
+                    print("->",path)
+                    result.append(path)
+                }
+            }
+
             else
             {
                 if let artistName = eachsong.artist?.name
                 {
-                    let path = SyncLocation + "/" + artistName + "/" + eachsong.album.title!
+                    let path = SyncLocation + "/" + artistName + "/" + newAlbumTitle
                     
                     if !result.contains(path)
                     {
-                        //print("-->",path)
+                        print("-->",path)
                         result.append(path)
                     }
-
                 }
             }
         }

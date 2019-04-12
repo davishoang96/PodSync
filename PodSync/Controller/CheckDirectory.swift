@@ -15,4 +15,9 @@ extension URL {
         let values = try? resourceValues(forKeys: [.isDirectoryKey])
         return values?.isDirectory ?? false
     }
+    
+    var isFileKey: Bool {
+        let values = try? resourceValues(forKeys: [.isRegularFileKey])
+        return values?.isRegularFile ?? false
+    }
 }

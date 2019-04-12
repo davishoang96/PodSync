@@ -104,6 +104,11 @@ class Synchronize
             
             num_copiedSongs = 0
             
+            
+            var newAlbumTitle: String
+            var newAlbumArtist: String
+            var newArtistName: String
+            
             // 1. Get file URLs in Synced folder
             if let item = DirectoryUtilities.Get_FolderItemURL(destinationFolder)
             {
@@ -114,31 +119,13 @@ class Synchronize
             // 2. Get file last path component in Synced folder
             folderItemsName = DirectoryUtilities.Get_LastPathComponent(destinationFolder)
             
-            
-            
             // 3. Get song name from the array
             songName = Utilities.Get_SongName(songs)
             
-            // 4. Compare playlists and folders
-            // Remove if item in folder not match with playlist
-            Utilities.Remove_NonExistItems(itemURL: folderItemsURL, songName: songName)
+            
             let songPath = DirectoryUtilities.createSongPath(songs)
-            
-            if let items = DirectoryUtilities.Get_FolderItemURL(UserDefaults.standard.getLocationURL())
-            {
-                DirectoryUtilities.get_subDirectory(items)
-                DirectoryUtilities.removeEmptyDirectory(items, Utilities.getArtistName(songs))
-            }
-            
             DirectoryUtilities.createDirectory(songPath)
             
-            
-            // 5. Remove songs if modified date not matched
-            
-            //var a = Utilities.get_SongMDateLib(songs)
-            //var b = Utilities.get_SongMDateFolder(items: folderItemsURL)
-            
-         
             
             // Get num of existed songs to calculate percent of sync
             num_existedSongs = Utilities.get_numOf_ExistedSongs(itemURL: folderItemsURL, songName: songName)
@@ -163,36 +150,89 @@ class Synchronize
                         songpath = (eachsong.location?.path)!
                         songfilename = (eachsong.location?.lastPathComponent)!
                         
-                        var folderLocation = destinationFolder.path + "/"
+                        let folderLocation = destinationFolder.path + "/"
+                        
+                        let albumTitle = eachsong.album.title
+                        if albumTitle == nil
+                        {
+                            newAlbumTitle = "Unknown Album"
+                        }
+                        else
+                        {
+                            newAlbumTitle = StringHelper.process(albumTitle!)
+                        }
+                        
+                        let artistName = eachsong.artist?.name
+                        if artistName == nil
+                        {
+                            newArtistName = "Unknown Artist"
+                        }
+                        else
+                        {
+                            newArtistName = StringHelper.process(artistName!)
+                        }
+                        
+                        let albumArtist = eachsong.album.albumArtist
+                        if albumArtist == nil
+                        {
+                            newAlbumArtist = "Unknown Artist"
+                        }
+                        else
+                        {
+                            newAlbumArtist = StringHelper.process(albumArtist!)
+                        }
 
                         if let song = eachsong.location?.lastPathComponent
                         {
                             if !folderItemsName.contains(song)
                             {
                                 
-                                if eachsong.album.albumArtist?.count != nil && eachsong.album.albumArtist == eachsong.artist?.name
+                                if eachsong.album.albumArtist?.count != nil && newArtistName == newAlbumArtist
                                 {
-                                    myPath = folderLocation + eachsong.album.albumArtist! + "/" + eachsong.album.title! + "/" + song
-                                    
+                                    myPath = folderLocation + newAlbumArtist + "/" + newAlbumTitle + "/" + song
                                 }
-                                else if eachsong.album.albumArtist == "Various" || eachsong.album.albumArtist == "Various Artists" || eachsong.album.albumArtist == "Various Artist"
+                                else if eachsong.album.albumArtist?.count != nil && newArtistName != newAlbumArtist
                                 {
-                                    myPath = folderLocation + "Various Artists"  + "/" + eachsong.album.title! + "/" + song
-                                    print(myPath)
+                                    print("3")
+                                    myPath = folderLocation + newAlbumArtist + "/" + newAlbumTitle + "/" + song
+                                }
+                                else if eachsong.album.albumArtist?.count == nil && newArtistName == newAlbumArtist
+                                {
+                                    let path1 = folderLocation + newArtistName + "/"
+                                    let path2 = newAlbumTitle + "/" + song
+                                    myPath = path1 + path2
+                                }
+                                else if eachsong.album.albumArtist?.count != nil && eachsong.album.albumArtist != eachsong.artist?.name && eachsong.album.albumArtist == "Various" || eachsong.album.albumArtist == "Various Artists" || eachsong.album.albumArtist == "Various Artist"
+                                {
+                                    print("2")
+                                    let path1 = folderLocation + newAlbumArtist
+                                    let path2 = "/" + newAlbumTitle + "/" + song
+                                    myPath = path1 + path2
+                                }
+                                else if eachsong.album.albumArtist == "Various" || eachsong.album.albumArtist == "Various Artists" || eachsong.album.albumArtist == "Various Artist" && eachsong.artist?.name != nil
+                                {
+                                    print("1")
+                                    myPath = folderLocation + newAlbumArtist  + "/" + newAlbumTitle + "/" + song
                                 }
                                 else if eachsong.album.albumArtist?.count == nil && eachsong.album.albumArtist != eachsong.artist?.name
                                 {
-                                    myPath = folderLocation + (eachsong.artist?.name)! + "/" + eachsong.album.title! + "/" + song
+                                    
+                                    myPath = folderLocation + newArtistName + "/" + newAlbumTitle + "/" + song
+                                    
+                                }
+                                else if eachsong.artist?.name == nil && ((eachsong.album.albumArtist?.count) != nil)
+                                {
+                                    
+                                    myPath  = folderLocation + newAlbumArtist + "/" + newAlbumTitle + "/" + song
                                     
                                 }
                                 else
                                 {
-                                    myPath  = folderLocation + (eachsong.artist?.name)! + "/" + eachsong.album.title! + "/" + song
-                                    
+                                    myPath = folderLocation + newArtistName + "/" + newAlbumTitle + "/" + song
                                 }
                                 
                                 
-                                
+                    
                                 try FileManager.default.copyItem(atPath: songpath, toPath: myPath)
                                 
                                 // Update processInfo in ViewController
@@ -215,7 +255,7 @@ class Synchronize
             }
             catch
             {
-                print(error.localizedDescription)
+                print("Func Sync:",error.localizedDescription)
                 isRunning = false
                 isCompleted = false
                 print("Stop sync")
