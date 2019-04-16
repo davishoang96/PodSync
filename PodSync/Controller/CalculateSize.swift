@@ -12,7 +12,7 @@ import iTunesLibrary
 
 class CalculateSize
 {
-    public static func actualFileSize(_ songs: [ITLibMediaItem]) -> String
+    public static func actualFileSize(_ songs: [ITLibMediaItem]) -> String?
     {
         var size: Int64 = 0
         
@@ -23,11 +23,10 @@ class CalculateSize
         
         let bcf = ByteCountFormatter()
         
-        bcf.allowedUnits = [.useMB]
+        bcf.allowedUnits = [.useAll]
         bcf.countStyle = .file
         
         let result = bcf.string(fromByteCount: size)
-        
         
         return result
     }

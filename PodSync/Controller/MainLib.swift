@@ -16,7 +16,7 @@ class Utilities{
     
     static let fileManager = FileManager.default
     
-    private static let builtinPlaylist = ["Music","Music Videos","TV and Movies", "Movies", "Home Videos", "TV Shows", "Podcasts", "Audiobooks","Purchased", "TV & Films", "Films", "TV Programmes"]
+    private static var builtinPlaylist = ["Music","Music Videos","TV and Movies", "Movies", "Home Videos", "TV Shows", "Podcasts", "Audiobooks","Purchased", "TV & Films", "Films", "TV Programmes"]
     
     private static var totalsong: Double?
 
@@ -33,7 +33,27 @@ class Utilities{
         }
     }
     
-    private static func getLibrary() -> ITLibrary
+    public static func ShowMainLibrary(_ toggle: Bool)
+    {
+        if toggle == true
+        {
+
+            if builtinPlaylist.contains("Library")
+            {
+                builtinPlaylist = builtinPlaylist.filter({ $0 != "Library" })
+            }
+            
+        }
+        else
+        {
+            builtinPlaylist.append("Library")
+            
+        }
+        print(builtinPlaylist)
+        myDataRadio.DataRadio("ReloadLibrary")
+    }
+    
+    public static func getLibrary() -> ITLibrary
     {
         if let library = LoadLibrary()
         {
@@ -162,12 +182,11 @@ class Utilities{
         {
             for eachitem in itemURL
             {
-                if !eachitem.isDirectory
+                if !eachitem.isDirectory && !eachitem.lastPathComponent.contains("playlists.xml")
                 {
-                    print(eachitem.lastPathComponent)
                     if !songName.contains(eachitem.lastPathComponent)
                     {
-                        print(i, "NOT MATCHED", eachitem.absoluteString)
+                        //print(i, "NOT MATCHED", eachitem.absoluteString)
                         
                         try fileManager.trashItem(at: eachitem, resultingItemURL: nil)
                     }

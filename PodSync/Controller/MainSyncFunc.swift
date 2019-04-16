@@ -18,12 +18,17 @@ class Synchronize
     private static var isCompleted: Bool?
     private static var num_existedSongs: Double = 0
     private static var num_copiedSongs: Int = 0
+    private static var message: String = ""
     
     static func stop(flag: Bool)
     {
         isRunning = flag
     }
     
+    static func getMessage()->String
+    {
+        return message
+    }
 
     static func getstop()->Bool
     {
@@ -61,7 +66,7 @@ class Synchronize
             let originalFiles = Utilities.get_SongMDateLib(songs)
             for eachfile in files
             {
-                if !eachfile.isDirectory
+                if !eachfile.isDirectory && !eachfile.absoluteString.contains("playlists.xml")
                 {
                     let itemMB = try FileManager.default.attributesOfItem(atPath: eachfile.path)
                     let fileDate = itemMB[FileAttributeKey.modificationDate] as! Date
@@ -70,7 +75,9 @@ class Synchronize
                     {
                         if !originalFiles.contains(fixDate)
                         {
-                            print("NOT MATCHED:",fixDate, eachfile.lastPathComponent)
+                            //print("NOT MATCHED:",fixDate, eachfile.lastPathComponent)
+                            message = "Removed: " + eachfile.lastPathComponent
+                            myDataRadio.DataRadio("UpdateMessage")
                             try FileManager.default.trashItem(at: eachfile, resultingItemURL: nil)
                         }
                     }
@@ -136,8 +143,9 @@ class Synchronize
             myDataRadio.DataRadio("NotificationRemained")
 
             // ------------------------------
-            
-            print("Begin Syncing")
+        
+            message = "Begin Syncing"
+            myDataRadio.DataRadio("UpdateMessage")
             
             // 5. SYNC
             do
@@ -145,7 +153,7 @@ class Synchronize
                 for eachsong in songs
                 {
                     // if running equal to false then stop syncing
-                    if isRunning == true
+                    if isRunning == true && DirectoryUtilities.checkDirectoryStatus(destinationFolder) == true
                     {
                         songpath = (eachsong.location?.path)!
                         songfilename = (eachsong.location?.lastPathComponent)!
@@ -193,7 +201,6 @@ class Synchronize
                                 }
                                 else if eachsong.album.albumArtist?.count != nil && newArtistName != newAlbumArtist
                                 {
-                                    print("3")
                                     myPath = folderLocation + newAlbumArtist + "/" + newAlbumTitle + "/" + song
                                 }
                                 else if eachsong.album.albumArtist?.count == nil && newArtistName == newAlbumArtist
@@ -235,13 +242,26 @@ class Synchronize
                     
                                 try FileManager.default.copyItem(atPath: songpath, toPath: myPath)
                                 
+                                message = "Copying: " + songfilename
+                                myDataRadio.DataRadio("UpdateMessage")
+                                
                                 // Update processInfo in ViewController
                                 myDataRadio.DataRadio("NotificationPercent")
-                                
+                                myDataRadio.DataRadio("UpdateVolumeInfo")
                                 num_copiedSongs+=1
                                 //print(num_copiedSongs)
+                                
+
                             }
                         }
+                    }
+                    else if isRunning == true && DirectoryUtilities.checkDirectoryStatus(destinationFolder) == false
+                    {
+                        isRunning = false
+                        isCompleted = false
+                        myDataRadio.DataRadio("StopSync")
+                        print("Destination Not Found")
+                        return
                     }
                     else
                     {
@@ -255,6 +275,13 @@ class Synchronize
             }
             catch
             {
+                if DirectoryUtilities.checkDirectoryStatus(destinationFolder) == true
+                {
+                    message = "Error!!! - Destination folder not found."
+                    myDataRadio.DataRadio("UpdateMessage")
+                    myDataRadio.DataRadio("NotifyDirectoryGone")
+                }
+            
                 print("Func Sync:",error.localizedDescription)
                 isRunning = false
                 isCompleted = false
@@ -266,7 +293,8 @@ class Synchronize
         isRunning = false
         isCompleted = true
         myDataRadio.DataRadio("StopSync")
-        
+        message = "Finish syncing " + String(num_copiedSongs) + " songs"
+        myDataRadio.DataRadio("UpdateMessage")
         alertBox.showNotification("Alert", "Finish syncing " + String(num_copiedSongs) + " songs")
     }
     

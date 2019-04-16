@@ -24,6 +24,16 @@ class alertBox
         return alert.runModal() == .alertFirstButtonReturn
     }
     
+    static func messageBox(question: String, text: String)
+    {
+        let alert = NSAlert()
+        alert.messageText = question
+        alert.informativeText = text
+        alert.alertStyle = .warning
+        alert.addButton(withTitle: "OK")
+        alert.runModal()
+    }
+    
     static func showNotification(_ title: String, _ info: String) -> Void {
         
         let notification = NSUserNotification()

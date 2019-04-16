@@ -20,7 +20,7 @@ class DirectoryUtilities
         
         do {
             let resourceKeys : [URLResourceKey] = [.creationDateKey, .isDirectoryKey]
-            let documentsURL = try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
+            try fileManager.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false)
             let enumerator = FileManager.default.enumerator(at: destinationFolder,
                                                             includingPropertiesForKeys: resourceKeys,
                                                             options: [.skipsHiddenFiles], errorHandler: { (url, error) -> Bool in
@@ -106,7 +106,6 @@ class DirectoryUtilities
             {
                 for directory in directories
                 {
-                    
                     while getFile(directory)?.count == 0 && getDirectory(directory)?.count == 0
                     {
                         try fileManager.trashItem(at: directory, resultingItemURL: nil)
@@ -163,6 +162,18 @@ class DirectoryUtilities
             print(error.localizedDescription)
         }
         
+    }
+    
+    static func checkDirectoryStatus(_ url: URL) -> Bool
+    {
+        if url.hasDirectoryPath
+        {
+            return true
+        }
+        else
+        {
+            return false
+        }
     }
     
     

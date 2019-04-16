@@ -21,8 +21,12 @@
 		44DDBB2D21F03F2100DA0735 /* PodSyncUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44DDBB2C21F03F2100DA0735 /* PodSyncUITests.swift */; };
 		44FBF69B22158C7900E28295 /* AlertBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44FBF69A22158C7900E28295 /* AlertBox.swift */; };
 		58059137225E47AE004697DD /* CalculateSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58059136225E47AE004697DD /* CalculateSize.swift */; };
+		5808C8AA2260E65700285981 /* SyncedPlaylist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5808C8A92260E65700285981 /* SyncedPlaylist.swift */; };
+		5808C8AC2260F61B00285981 /* Playlist.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5808C8AB2260F61B00285981 /* Playlist.swift */; };
+		583B23D02264FED800008B9B /* ConsoleMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 583B23CF2264FED800008B9B /* ConsoleMessage.swift */; };
 		5844A0E62256454C00F1799A /* StringHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5844A0E52256454C00F1799A /* StringHelper.swift */; };
-		58938B26225B8F8A00E66F85 /* SongInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58938B25225B8F8A00E66F85 /* SongInfo.swift */; };
+		58C9ECE42264B22000AC52EB /* AudioConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9ECE32264B22000AC52EB /* AudioConverter.swift */; };
+		58C9ECE62264B27800AC52EB /* VolumeInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58C9ECE52264B27800AC52EB /* VolumeInfo.swift */; };
 		8D15680021F094980078483F /* MainLib.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1567FF21F094980078483F /* MainLib.swift */; };
 		8D1F337A220D33F600389774 /* MainSyncFunc.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D1F3379220D33F600389774 /* MainSyncFunc.swift */; };
 		8D33C13621F1624D004F0814 /* UserSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D33C13521F1624C004F0814 /* UserSettings.swift */; };
@@ -79,8 +83,12 @@
 		44DDBB2E21F03F2100DA0735 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		44FBF69A22158C7900E28295 /* AlertBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertBox.swift; sourceTree = "<group>"; };
 		58059136225E47AE004697DD /* CalculateSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateSize.swift; sourceTree = "<group>"; };
+		5808C8A92260E65700285981 /* SyncedPlaylist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncedPlaylist.swift; sourceTree = "<group>"; };
+		5808C8AB2260F61B00285981 /* Playlist.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Playlist.swift; sourceTree = "<group>"; };
+		583B23CF2264FED800008B9B /* ConsoleMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConsoleMessage.swift; sourceTree = "<group>"; };
 		5844A0E52256454C00F1799A /* StringHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringHelper.swift; sourceTree = "<group>"; };
-		58938B25225B8F8A00E66F85 /* SongInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongInfo.swift; sourceTree = "<group>"; };
+		58C9ECE32264B22000AC52EB /* AudioConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioConverter.swift; sourceTree = "<group>"; };
+		58C9ECE52264B27800AC52EB /* VolumeInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VolumeInfo.swift; sourceTree = "<group>"; };
 		8D1567FF21F094980078483F /* MainLib.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLib.swift; sourceTree = "<group>"; wrapsLines = 0; };
 		8D1F3379220D33F600389774 /* MainSyncFunc.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainSyncFunc.swift; sourceTree = "<group>"; };
 		8D33C13521F1624C004F0814 /* UserSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettings.swift; sourceTree = "<group>"; };
@@ -140,6 +148,7 @@
 		44DDBB0E21F03F2000DA0735 /* PodSync */ = {
 			isa = PBXGroup;
 			children = (
+				58C9ECE22264B20F00AC52EB /* Audio */,
 				8D33C13421F161B1004F0814 /* Models */,
 				8D33C13321F161AB004F0814 /* Controller */,
 				8D33C13221F161A1004F0814 /* Views */,
@@ -168,6 +177,14 @@
 			path = PodSyncUITests;
 			sourceTree = "<group>";
 		};
+		58C9ECE22264B20F00AC52EB /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				58C9ECE32264B22000AC52EB /* AudioConverter.swift */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		8D33C13221F161A1004F0814 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -182,6 +199,7 @@
 		8D33C13321F161AB004F0814 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				5808C8A92260E65700285981 /* SyncedPlaylist.swift */,
 				44DDBB0F21F03F2100DA0735 /* AppDelegate.swift */,
 				8D1567FF21F094980078483F /* MainLib.swift */,
 				8D1F3379220D33F600389774 /* MainSyncFunc.swift */,
@@ -191,6 +209,7 @@
 				445B9191221EC81300915412 /* DirectoryUtilities.swift */,
 				5844A0E52256454C00F1799A /* StringHelper.swift */,
 				58059136225E47AE004697DD /* CalculateSize.swift */,
+				58C9ECE52264B27800AC52EB /* VolumeInfo.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -199,7 +218,8 @@
 			isa = PBXGroup;
 			children = (
 				8D33C13521F1624C004F0814 /* UserSettings.swift */,
-				58938B25225B8F8A00E66F85 /* SongInfo.swift */,
+				5808C8AB2260F61B00285981 /* Playlist.swift */,
+				583B23CF2264FED800008B9B /* ConsoleMessage.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -353,14 +373,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				445B9192221EC81300915412 /* DirectoryUtilities.swift in Sources */,
+				5808C8AC2260F61B00285981 /* Playlist.swift in Sources */,
 				58059137225E47AE004697DD /* CalculateSize.swift in Sources */,
 				8D15680021F094980078483F /* MainLib.swift in Sources */,
-				58938B26225B8F8A00E66F85 /* SongInfo.swift in Sources */,
 				443535AC2211A9FF002E34C4 /* Percent.swift in Sources */,
 				447D203F22194535007183E9 /* CheckDirectory.swift in Sources */,
 				44FBF69B22158C7900E28295 /* AlertBox.swift in Sources */,
+				5808C8AA2260E65700285981 /* SyncedPlaylist.swift in Sources */,
 				5844A0E62256454C00F1799A /* StringHelper.swift in Sources */,
 				8D1F337A220D33F600389774 /* MainSyncFunc.swift in Sources */,
+				583B23D02264FED800008B9B /* ConsoleMessage.swift in Sources */,
+				58C9ECE42264B22000AC52EB /* AudioConverter.swift in Sources */,
+				58C9ECE62264B27800AC52EB /* VolumeInfo.swift in Sources */,
 				8DB09EF121F05A42006B662C /* CustomTableViewCell.swift in Sources */,
 				4448309E22184E0E0045AD79 /* DataRadio.swift in Sources */,
 				44DDBB1221F03F2100DA0735 /* ViewController.swift in Sources */,

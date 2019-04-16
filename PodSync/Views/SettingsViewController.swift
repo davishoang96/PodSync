@@ -11,6 +11,7 @@ import Cocoa
 class SettingsViewController: NSViewController {
 
     var alwaysOnTop = UserDefaults.standard.getAlwaysOnTop()
+    var showLibrary = UserDefaults.standard.getShowLibrary()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +20,7 @@ class SettingsViewController: NSViewController {
         preferredContentSize = view.frame.size
         PathControl.url = UserDefaults.standard.getLocationURL().absoluteURL
         
+        // Set checkbox state for floating UI
         if alwaysOnTop == true
         {
             CheckAlwaysOnTop.state = .on
@@ -28,9 +30,22 @@ class SettingsViewController: NSViewController {
             CheckAlwaysOnTop.state = .off
         }
         
-       
         
+        // Set checkbox state for showing library in tableView
+        if showLibrary == true
+        {
+            
+            CheckShowLib.state = .on
+        }
+        else
+        {
+            CheckShowLib.state = .off
+        }
         
+    }
+    
+    override func viewDidAppear() {
+         
     }
 
     
@@ -51,7 +66,7 @@ class SettingsViewController: NSViewController {
                 let result = dialog.url
                 
                 if (result != nil) {
-                    
+            
                     self.PathControl.url = result?.absoluteURL
                     
                     UserDefaults.standard.setLocationURL(value: result!)
@@ -65,12 +80,25 @@ class SettingsViewController: NSViewController {
         })
     }
     
-
-    @IBOutlet weak var myTextField: NSTextField!
-    @IBAction func onTypeTextField(_ sender: NSTextField)
+    @IBOutlet weak var DiskSizeIndicator: NSLevelIndicator!
+    
+    
+    @IBOutlet weak var CheckShowLib: NSButton!
+    @IBAction func onCheckShowLib(_ sender: NSButton)
     {
-        
+        if CheckShowLib.state == .on
+        {
+            UserDefaults.standard.setShowLibrary(value: true)
+            Utilities.ShowMainLibrary(true)
+        }
+        else if CheckShowLib.state == .off
+        {
+            UserDefaults.standard.setShowLibrary(value: false)
+            Utilities.ShowMainLibrary(false)
+        }
     }
+    
+    
     
     @IBOutlet weak var CheckAlwaysOnTop: NSButton!
     @IBAction func onCheckAlwaysOnTop(_ sender: NSButton) {

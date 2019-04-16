@@ -27,6 +27,16 @@ extension UserDefaults{
         set(value, forKey: "WindowAlwaysOnTop")
     }
     
+    func setShowLibrary(value: Bool)
+    {
+        set(value, forKey: "ShowLibrary")
+    }
+    
+    func getShowLibrary() -> Bool
+    {
+        return bool(forKey: "ShowLibrary")
+    }
+    
     func getAlwaysOnTop() -> Bool
     {
         return bool(forKey: "WindowAlwaysOnTop")

@@ -16,6 +16,11 @@ class CustomTableViewCell: NSTableCellView {
         sel_checkBox?(sender)
     }
     
+    @IBOutlet weak var label_totalSong: NSTextField!
+    @IBOutlet weak var label_size: NSTextField!
+    @IBOutlet weak var label_time: NSTextField!
+    @IBOutlet weak var label_description: NSTextField!
+    
     
     
     override func draw(_ dirtyRect: NSRect) {
